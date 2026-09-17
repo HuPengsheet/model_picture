@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="1800" viewBox="0 0 1700 1800" role="img" aria-labelledby="title desc">
+  <title id="title">DeepSeek-V3.2-671B architecture</title>
+  <desc id="desc">A 61-layer DeepseekV32ForCausalLM decoder. Every layer uses multi-head latent attention with DeepSeek Sparse Attention; the first three layers use dense FFNs and the remaining 58 use MoE layers with one shared and eight selected routed experts.</desc>
+  <style>
+    .outer{fill:#d4d4d4;stroke:#111;stroke-width:4}.block{fill:#fa928b;stroke:#111;stroke-width:4}.module{fill:#fff;stroke:#111;stroke-width:4}.attention{fill:#545454;stroke:#111;stroke-width:4}.moe{fill:#6b6b6b;stroke:#111;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.router{fill:#fff;stroke:#2998ff;stroke-width:4}.panel{fill:#d4d4d4;stroke:#111;stroke-width:5;stroke-dasharray:8 8}.flow{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}.residual{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}.callout{fill:none;stroke:#111;stroke-width:3;stroke-dasharray:6 6}.title{font:800 60px Arial,sans-serif;fill:#d31578}.subtitle{font:500 22px Arial,sans-serif;fill:#334e68}.heading{font:700 28px Arial,sans-serif;fill:#111}.label{font:500 24px Arial,sans-serif;fill:#111}.small{font:500 20px Arial,sans-serif;fill:#111}.schedule{font:500 18px Arial,sans-serif;fill:#111}.darklabel{font:500 23px Arial,sans-serif;fill:#fff}.attentionlabel{font:500 25px Arial,sans-serif;fill:#fff}.note{font:700 24px Arial,sans-serif;fill:#111}.embeddingnote{font:700 30px Arial,sans-serif;fill:#111}.repeat{font:700 30px Arial,sans-serif;fill:#2998ff}.accent{fill:#d31578}.blue{fill:#2998ff;font-weight:700}
+  </style>
+  <defs>
+    <marker id="thin-arrow" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto"><path d="M0 0 L7 3.5 L0 7z" fill="#111"/></marker>
+  </defs>
+  <rect width="1700" height="1800" fill="#fff"/>
+  <text x="500" y="73" text-anchor="middle" class="title">DeepSeek-V3.2 (671B)</text>
+  <text x="500" y="115" text-anchor="middle" class="subtitle">DeepseekV32ForCausalLM · decoder-only MoE Transformer</text>
+
+  <!-- Overall model -->
+  <rect class="outer" x="150" y="150" width="700" height="1450" rx="68"/>
+  <rect class="module" x="370" y="210" width="260" height="55" rx="13"/>
+  <text x="500" y="246" text-anchor="middle" class="label">LM Head</text>
+  <rect class="module" x="390" y="300" width="220" height="55" rx="13"/>
+  <text x="500" y="336" text-anchor="middle" class="label">Final RMSNorm</text>
+
+  <!-- Decoder layer: actual ordering is pre-norm attention, residual, pre-norm FFN/MoE, residual. -->
+  <rect class="block" x="240" y="400" width="520" height="950" rx="58"/>
+  <text x="710" y="455" text-anchor="end" class="small">hidden size 7,168</text>
+  <circle class="sum" cx="500" cy="520" r="20"/>
+  <text x="500" y="530" text-anchor="middle" class="heading">+</text>
+  <rect class="moe" x="345" y="565" width="310" height="100" rx="16"/>
+  <text x="500" y="600" text-anchor="middle" class="darklabel">MoE FFN</text>
+  <text x="500" y="638" text-anchor="middle" class="darklabel">1 shared + top-8 routed</text>
+  <rect class="module" x="394" y="710" width="212" height="55" rx="13"/>
+  <text x="500" y="746" text-anchor="middle" class="label">RMSNorm 2</text>
+  <circle class="sum" cx="500" cy="830" r="20"/>
+  <text x="500" y="840" text-anchor="middle" class="heading">+</text>
+  <rect class="attention" x="290" y="880" width="420" height="180" rx="16"/>
+  <text x="500" y="928" text-anchor="middle" class="attentionlabel">Multi-head Latent Attention</text>
+  <text x="500" y="973" text-anchor="middle" class="attentionlabel">+ DeepSeek Sparse Attention</text>
+  <text x="500" y="1018" text-anchor="middle" class="attentionlabel">128 heads · MLA + DSA</text>
+  <rect class="module" x="394" y="1120" width="212" height="55" rx="13"/>
+  <text x="500" y="1156" text-anchor="middle" class="label">RMSNorm 1</text>
+  <text x="298" y="1310" class="repeat">61 ×</text>
+
+  <!-- Input / output and real residual routes -->
+  <rect class="module" x="20" y="943" width="155" height="55" rx="13"/>
+  <text x="88" y="979" text-anchor="middle" class="label">RoPE</text>
+  <rect class="module" x="320" y="1440" width="360" height="55" rx="13"/>
+  <text x="500" y="1476" text-anchor="middle" class="label">Token embedding layer</text>
+  <path class="callout" d="M682 1468 L920 1510"/>
+  <text x="950" y="1505" class="embeddingnote">Embedding</text>
+  <text x="950" y="1545" class="embeddingnote">dimension of <tspan class="blue">7,168</tspan></text>
+  <rect class="module" x="350" y="1640" width="300" height="55" rx="13"/>
+  <text x="500" y="1676" text-anchor="middle" class="label">Tokenized text</text>
+  <path class="flow" d="M500 1640 V1498"/>
+  <path class="flow" d="M500 1440 V1178"/>
+  <path class="flow" d="M500 1120 V1063"/>
+  <path class="flow" d="M500 880 V853"/>
+  <path class="flow" d="M500 808 V768"/>
+  <path class="flow" d="M500 710 V668"/>
+  <path class="flow" d="M500 565 V543"/>
+  <path class="flow" d="M500 498 V358"/>
+  <path class="flow" d="M500 300 V268"/>
+  <path class="flow" d="M500 210 V130"/>
+  <path class="flow" d="M175 970 H287"/>
+  <path class="residual" d="M500 1200 H715 V830 H523"/>
+  <path class="residual" d="M500 808 H715 V520 H523"/>
+
+  <!-- MoE detail: exact expert counts and selection are from the official configuration. -->
+  <rect class="panel" x="950" y="420" width="660" height="760" rx="38"/>
+  <text x="1280" y="475" text-anchor="middle" class="heading">MoE layer</text>
+  <text x="1280" y="508" text-anchor="middle" class="small">256 routed experts + 1 shared expert</text>
+  <circle class="sum" cx="1280" cy="570" r="20"/>
+  <text x="1280" y="580" text-anchor="middle" class="heading">+</text>
+  <rect class="module" x="985" y="660" width="260" height="55" rx="13"/>
+  <text x="1115" y="696" text-anchor="middle" class="label">Shared expert × 1</text>
+  <rect class="module" x="1330" y="660" width="230" height="55" rx="13"/>
+  <text x="1445" y="696" text-anchor="middle" class="label">Routed experts</text>
+  <text x="1530" y="750" text-anchor="middle" class="note">top-8 / 256</text>
+  <rect class="router" x="1170" y="900" width="220" height="55" rx="13"/>
+  <text x="1280" y="936" text-anchor="middle" class="label">Router</text>
+  <rect class="module" x="1110" y="1060" width="340" height="55" rx="13"/>
+  <text x="1280" y="1096" text-anchor="middle" class="label">hidden states (7,168)</text>
+  <path class="flow" d="M1280 1060 V958"/>
+  <path class="flow" d="M1280 900 V840 H1115 V718"/>
+  <path class="flow" d="M1280 840 H1445 V718"/>
+  <path class="flow" d="M1115 660 V570 H1257"/>
+  <path class="flow" d="M1445 660 V570 H1303"/>
+  <path class="flow" d="M1280 548 V520"/>
+  <path class="flow" d="M720 610 L947 690"/>
+</svg>

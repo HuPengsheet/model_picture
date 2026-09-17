@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="590" viewBox="0 0 1120 590" role="img" aria-labelledby="title desc">
+  <title id="title">Mixture-of-Experts layer</title>
+  <desc id="desc">A Mixture-of-Experts layer diagram showing a router dispatching tokens to feed-forward experts, whose outputs merge at an addition node.</desc>
+  <style>
+    .panel{fill:#f7f7f7;stroke:#111;stroke-width:5;stroke-dasharray:8 8}.module{fill:#fff;stroke:#111;stroke-width:4}.router{fill:#fff;stroke:#2998ff;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}.wire{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round}.label{font:500 22px Arial,sans-serif;fill:#111}.title{font:700 28px Arial,sans-serif;fill:#111}.body{font:500 22px Arial,sans-serif;fill:#111}.ellipsis{font:700 28px Arial,sans-serif;fill:#111}.blue{fill:#2998ff;font-weight:700}.badge-dark{fill:#111}.badge-blue{fill:#2998ff}.badge-text{font:700 18px Arial,sans-serif;fill:#fff}
+  </style>
+  <defs>
+    <marker id="thin-arrow" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
+    </marker>
+  </defs>
+  <rect width="1120" height="590" fill="#fff"/>
+
+  <!-- MoE routing panel -->
+  <rect class="panel" x="30" y="25" width="550" height="530" rx="52"/>
+  <text x="448" y="95" text-anchor="middle" class="title">MoE layer</text>
+  <circle class="sum" cx="305" cy="132" r="20"/>
+  <text x="305" y="142" text-anchor="middle" class="title">+</text>
+
+  <!-- Expert modules: white frames match the established 55px height. -->
+  <rect class="module" x="55" y="230" width="220" height="55" rx="13"/>
+  <rect class="module" x="335" y="230" width="220" height="55" rx="13"/>
+  <text x="165" y="266" text-anchor="middle" class="label">Feed forward</text>
+  <text x="445" y="266" text-anchor="middle" class="label">Feed forward</text>
+
+  <rect class="router" x="225" y="410" width="160" height="55" rx="13"/>
+  <text x="305" y="446" text-anchor="middle" class="label">Router</text>
+  <!-- Counts sit beside, never on top of, their routing arrows. -->
+  <rect class="badge-dark" x="80" y="302" width="43" height="34" rx="4"/>
+  <text x="101" y="325" text-anchor="middle" class="badge-text">1</text>
+  <text x="305" y="270" text-anchor="middle" class="ellipsis">•••</text>
+  <rect class="badge-blue" x="500" y="302" width="64" height="34" rx="4"/>
+  <text x="532" y="325" text-anchor="middle" class="badge-text">256</text>
+
+  <!-- Router dispatch and expert merge paths -->
+  <path class="flow" d="M305 410 V350 L145 325"/>
+  <path class="flow" d="M305 410 V340"/>
+  <path class="flow" d="M305 410 V350 L465 325"/>
+  <path class="flow" d="M165 230 V195 L282 150"/>
+  <path class="flow" d="M445 230 V195 L328 150"/>
+  <path class="flow" d="M305 112 V45"/>
+  <path class="flow" d="M305 525 V468"/>
+
+  <!-- Explanation column -->
+  <text x="630" y="85" class="body blue">Resource savings:</text>
+  <text x="630" y="130" class="body">•&#160; Model size is <tspan class="blue">284B</tspan></text>
+  <text x="630" y="175" class="body">•&#160; but only <tspan class="blue">1 (shared) + 6 experts</tspan></text>
+  <text x="660" y="205" class="body">active per token</text>
+  <text x="630" y="250" class="body">•&#160; only <tspan class="blue">13B</tspan> parameters are active</text>
+  <text x="660" y="280" class="body">per inference step</text>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1850" viewBox="0 0 1100 1850" role="img" aria-label="Blank per-layer embedding Transformer architecture layout">
+  <style>
+    .outer{fill:#d4d4d4;stroke:#111;stroke-width:4}.block{fill:#4b93f8;stroke:#111;stroke-width:4}.module{fill:#fff;stroke:#111;stroke-width:4}.attention{fill:#545454;stroke:#111;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;marker-end:url(#thin-arrow)}.residual{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}
+  </style>
+  <defs>
+    <marker id="thin-arrow" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="1850" fill="#fff"/>
+
+  <!-- Outer model and output head -->
+  <rect class="outer" x="70" y="30" width="960" height="1570" rx="62"/>
+  <rect class="module" x="420" y="70" width="260" height="55" rx="13"/>
+  <rect class="module" x="440" y="185" width="220" height="55" rx="13"/>
+
+  <!-- Repeated block with a spacious vertical layout -->
+  <rect class="block" x="200" y="300" width="700" height="1120" rx="56"/>
+  <rect class="module" x="420" y="360" width="260" height="55" rx="13"/>
+  <circle class="sum" cx="550" cy="475" r="18"/>
+  <rect class="module" x="430" y="540" width="240" height="55" rx="13"/>
+  <rect class="module" x="400" y="640" width="300" height="55" rx="13" fill="#e5e5e5"/>
+  <rect class="module" x="430" y="740" width="240" height="55" rx="13"/>
+  <circle class="sum" cx="550" cy="850" r="18"/>
+  <rect class="module" x="430" y="920" width="240" height="55" rx="13"/>
+  <rect class="attention" x="340" y="1020" width="420" height="160" rx="16"/>
+  <rect class="module" x="430" y="1260" width="240" height="55" rx="13"/>
+
+  <!-- Side modules and lower input/output -->
+  <rect class="module" x="10" y="1040" width="160" height="55" rx="13"/>
+  <rect class="module" x="10" y="1140" width="160" height="55" rx="13"/>
+  <rect class="module" x="360" y="1480" width="380" height="55" rx="13"/>
+  <rect class="module" x="395" y="1680" width="310" height="55" rx="13"/>
+
+  <!-- Vertical data flow -->
+  <path class="flow" d="M550 1680 V1538"/>
+  <path class="flow" d="M550 1480 V1318"/>
+  <path class="flow" d="M550 1260 V1183"/>
+  <path class="flow" d="M550 1020 V978"/>
+  <path class="flow" d="M550 920 V871"/>
+  <path class="flow" d="M550 830 V798"/>
+  <path class="flow" d="M550 740 V698"/>
+  <path class="flow" d="M550 640 V598"/>
+  <path class="flow" d="M550 540 V496"/>
+  <path class="flow" d="M550 455 V418"/>
+  <path class="flow" d="M550 360 V243"/>
+  <path class="flow" d="M550 185 V128"/>
+  <path class="flow" d="M550 70 V10"/>
+
+  <!-- Two folded residual paths on the right, kept outside the attention box. -->
+  <path class="residual" d="M550 1360 H850 V850 H570"/>
+  <path class="residual" d="M550 830 H850 V475 H570"/>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="1500" viewBox="0 0 820 1500" role="img" aria-label="Blank MoE MLA decoder architecture layout">
+  <style>
+    .outer{fill:#d4d4d4;stroke:#111;stroke-width:4}.block{fill:#81a9e2;stroke:#111;stroke-width:4}.module{fill:#fff;stroke:#111;stroke-width:4}.attention{fill:#545454;stroke:#111;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;marker-end:url(#thin-arrow)}.residual{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}
+  </style>
+  <defs>
+    <marker id="thin-arrow" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
+    </marker>
+  </defs>
+  <rect width="820" height="1500" fill="#fff"/>
+
+  <!-- Main model region: all internal boxes stay inside this gray container. -->
+  <rect class="outer" x="120" y="40" width="580" height="1250" rx="62"/>
+
+  <!-- Output stack -->
+  <rect class="module" x="299" y="95" width="222" height="55" rx="13"/>
+  <rect class="module" x="313" y="195" width="194" height="55" rx="13"/>
+
+  <!-- Repeated decoder block -->
+  <rect class="block" x="195" y="300" width="430" height="790" rx="56"/>
+  <circle class="sum" cx="410" cy="355" r="20"/>
+  <rect class="module" x="301" y="430" width="218" height="55" rx="13" fill="#e5e5e5"/>
+  <rect class="module" x="304" y="535" width="212" height="55" rx="13"/>
+  <circle class="sum" cx="410" cy="665" r="20"/>
+  <rect class="attention" x="266" y="725" width="288" height="170" rx="16"/>
+  <rect class="module" x="304" y="950" width="212" height="55" rx="13"/>
+
+  <!-- Side RoPE component -->
+  <rect class="module" x="10" y="780" width="150" height="55" rx="13"/>
+
+  <!-- Bottom of model region -->
+  <rect class="module" x="262" y="1130" width="296" height="55" rx="13"/>
+
+  <!-- This external input is deliberately below (not overlapping) the gray region. -->
+  <rect class="module" x="289" y="1360" width="242" height="55" rx="13"/>
+
+  <!-- Thin vertical data-flow arrows, drawn bottom-to-top. -->
+  <path class="flow" d="M410 1360 V1188"/>
+  <path class="flow" d="M410 1130 V1008"/>
+  <path class="flow" d="M410 950 V898"/>
+  <path class="flow" d="M410 725 V688"/>
+  <path class="flow" d="M410 645 V593"/>
+  <path class="flow" d="M410 535 V488"/>
+  <path class="flow" d="M410 430 V378"/>
+  <path class="flow" d="M410 335 V253"/>
+  <path class="flow" d="M410 195 V153"/>
+  <path class="flow" d="M410 95 V10"/>
+
+  <!-- Folded residual paths: attention residual and MoE residual. -->
+  <path class="residual" d="M410 1050 H590 V665 H433"/>
+  <path class="residual" d="M410 630 H590 V355 H433"/>
+</svg>

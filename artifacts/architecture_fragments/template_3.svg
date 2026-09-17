@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1900" viewBox="0 0 1100 1900" role="img" aria-label="Blank deep blue mixer, MoE and attention architecture layout">
+  <style>
+    .outer{fill:#d4d4d4;stroke:#111;stroke-width:4}.block{fill:#287dcc;stroke:#111;stroke-width:4}.module{fill:#fff;stroke:#111;stroke-width:4}.attention{fill:#545454;stroke:#111;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;marker-end:url(#thin-arrow)}.residual{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}
+  </style>
+  <defs>
+    <marker id="thin-arrow" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="1900" fill="#fff"/>
+
+  <!-- Outer model body and output stack -->
+  <rect class="outer" x="70" y="30" width="960" height="1650" rx="62"/>
+  <rect class="module" x="420" y="80" width="260" height="55" rx="13"/>
+  <rect class="module" x="440" y="195" width="220" height="55" rx="13"/>
+
+  <!-- Repeated decoder block: modules use a deliberately spacious vertical grid. -->
+  <rect class="block" x="200" y="310" width="700" height="1180" rx="56"/>
+  <circle class="sum" cx="550" cy="370" r="18"/>
+  <rect class="module" x="460" y="445" width="180" height="55" rx="12"/>
+  <rect class="module" x="420" y="545" width="260" height="55" rx="13" fill="#e5e5e5"/>
+  <rect class="module" x="460" y="665" width="180" height="55" rx="12"/>
+  <rect class="module" x="410" y="770" width="280" height="55" rx="13"/>
+  <circle class="sum" cx="550" cy="900" r="18"/>
+  <rect class="module" x="460" y="970" width="180" height="55" rx="12"/>
+  <rect class="attention" x="355" y="1080" width="390" height="150" rx="16"/>
+  <rect class="module" x="460" y="1300" width="180" height="55" rx="12"/>
+  <rect class="module" x="410" y="1400" width="280" height="55" rx="13"/>
+
+  <!-- Side component, embedding and external input -->
+  <rect class="module" x="10" y="1128" width="160" height="55" rx="13"/>
+  <rect class="module" x="360" y="1530" width="380" height="55" rx="13"/>
+  <rect class="module" x="395" y="1760" width="310" height="55" rx="13"/>
+
+  <!-- Main vertical data flow: every arrow occupies a dedicated gap. -->
+  <path class="flow" d="M550 1760 V1588"/>
+  <path class="flow" d="M550 1530 V1458"/>
+  <path class="flow" d="M550 1400 V1358"/>
+  <path class="flow" d="M550 1300 V1233"/>
+  <path class="flow" d="M550 1080 V1028"/>
+  <path class="flow" d="M550 970 V921"/>
+  <path class="flow" d="M550 880 V828"/>
+  <path class="flow" d="M550 770 V723"/>
+  <path class="flow" d="M550 665 V603"/>
+  <path class="flow" d="M550 545 V503"/>
+  <path class="flow" d="M550 445 V391"/>
+  <path class="flow" d="M550 350 V253"/>
+  <path class="flow" d="M550 195 V138"/>
+  <path class="flow" d="M550 80 V10"/>
+
+  <!-- Folded residual paths stay right of the dark attention module. -->
+  <path class="residual" d="M550 1480 H850 V900 H570"/>
+  <path class="residual" d="M550 880 H850 V370 H570"/>
+</svg>

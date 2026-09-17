@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1810" viewBox="0 0 1100 1810" role="img" aria-label="Blank beige Transformer architecture layout">
+  <style>
+    .outer{fill:#d4d4d4;stroke:#111;stroke-width:4}.block{fill:#ead2a2;stroke:#111;stroke-width:4}.module{fill:#fff;stroke:#111;stroke-width:4}.attention{fill:#545454;stroke:#111;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;marker-end:url(#thin-arrow)}.residual{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}
+  </style>
+  <defs>
+    <marker id="thin-arrow" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
+      <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
+    </marker>
+  </defs>
+  <rect width="1100" height="1810" fill="#fff"/>
+
+  <rect class="outer" x="70" y="30" width="960" height="1540" rx="62"/>
+  <rect class="module" x="420" y="70" width="260" height="55" rx="13"/>
+  <rect class="module" x="440" y="185" width="220" height="55" rx="13"/>
+
+  <!-- Repeated pre/post-norm decoder block -->
+  <rect class="block" x="200" y="300" width="700" height="1050" rx="56"/>
+  <circle class="sum" cx="550" cy="395" r="18"/>
+  <rect class="module" x="430" y="470" width="240" height="55" rx="13"/>
+  <rect class="module" x="400" y="580" width="300" height="55" rx="13" fill="#e5e5e5"/>
+  <rect class="module" x="430" y="690" width="240" height="55" rx="13"/>
+  <circle class="sum" cx="550" cy="800" r="18"/>
+  <rect class="module" x="430" y="870" width="240" height="55" rx="13"/>
+  <rect class="attention" x="340" y="970" width="420" height="160" rx="16"/>
+  <rect class="module" x="430" y="1220" width="240" height="55" rx="13"/>
+
+  <rect class="module" x="10" y="995" width="160" height="55" rx="13"/>
+  <rect class="module" x="10" y="1100" width="160" height="55" rx="13"/>
+  <rect class="module" x="360" y="1410" width="380" height="55" rx="13"/>
+  <rect class="module" x="395" y="1640" width="310" height="55" rx="13"/>
+
+  <!-- Main vertical data flow -->
+  <path class="flow" d="M550 1640 V1468"/>
+  <path class="flow" d="M550 1410 V1278"/>
+  <path class="flow" d="M550 1220 V1133"/>
+  <path class="flow" d="M550 970 V928"/>
+  <path class="flow" d="M550 870 V821"/>
+  <path class="flow" d="M550 780 V748"/>
+  <path class="flow" d="M550 690 V638"/>
+  <path class="flow" d="M550 580 V528"/>
+  <path class="flow" d="M550 470 V416"/>
+  <path class="flow" d="M550 375 V243"/>
+  <path class="flow" d="M550 185 V128"/>
+  <path class="flow" d="M550 70 V10"/>
+
+  <!-- Right-side folded residual paths -->
+  <path class="residual" d="M550 1320 H850 V800 H570"/>
+  <path class="residual" d="M550 780 H850 V395 H570"/>
+</svg>
