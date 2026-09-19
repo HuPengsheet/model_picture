@@ -6,10 +6,10 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 T = ROOT / 'artifacts/diagrams/templates'
-cfg = json.loads((ROOT / 'artifacts/data/hf_qwen_configs/Qwen3.6/Qwen3.6-35B-A3B.json').read_text())
+cfg = json.loads((ROOT / 'models/qwen3.6-35b-a3b/config.json').read_text())
 c = cfg['text_config']
 assert c['layer_types'] == ['linear_attention'] * 3 + ['full_attention'] or c['layer_types'] == (['linear_attention'] * 3 + ['full_attention']) * 10
-out = ROOT / 'artifacts/diagrams/models/qwen3.6-35b-a3b'
+out = ROOT / 'models/qwen3.6-35b-a3b'
 out.mkdir(parents=True, exist_ok=True)
 # Reuse the main-network template palette and components' rounded box language.
 base_style = re.search(r'<style>(.*?)</style>', (T / 'main_network/template_1.svg').read_text(), re.S)[1]

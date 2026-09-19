@@ -70,8 +70,8 @@ def normalize(raw: dict, source: Path) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input", type=Path, default=Path("artifacts/data/hf_qwen_configs"))
-    parser.add_argument("--output", type=Path, default=Path("artifacts/structures/qwen"))
+    parser.add_argument("--input", type=Path, default=Path("models/_raw_qwen_configs"))
+    parser.add_argument("--output", type=Path, default=Path("models/_qwen_structures"))
     args = parser.parse_args()
     configs = sorted(path for path in args.input.rglob("*.json") if path.name != "manifest.json")
     index = []

@@ -21,7 +21,7 @@ def fail(message: str) -> None:
 
 def validate(spec_path: Path) -> dict:
     spec = json.loads(spec_path.read_text(encoding="utf-8"))
-    root = spec_path.resolve().parents[2]
+    root = Path(__file__).resolve().parents[1]
     for key in ("model_name", "repository", "config_file", "output_directory", "renderer"):
         if not spec.get(key):
             fail(f"missing required spec field: {key}")

@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1650" viewBox="0 0 2200 1650">
+<title>Qwen3.5-0.8B architecture</title>
+<desc>Official-config architecture: multimodal input, hybrid Gated DeltaNet and Gated GQA layers, and dense SwiGLU FFNs.</desc>
+<defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#222"/></marker></defs>
+<rect width="2200" height="1650" fill="white"/>
+<text x="1100" y="58" font-family="Arial,sans-serif" font-size="42" fill="#222" text-anchor="middle">Qwen3.5 · 0.8B</text>
+<text x="1100" y="100" font-family="Arial,sans-serif" font-size="24" fill="#666" text-anchor="middle">Multimodal input · Hybrid attention · Dense SwiGLU</text>
+<rect x="40" y="125" width="680" height="70" rx="18" fill="#edf4ff" stroke="#222" stroke-width="2"/>
+<text x="380" y="170" font-family="Arial,sans-serif" font-size="28" fill="#245ba0" text-anchor="middle">hidden_size = 1,024</text>
+<rect x="760" y="125" width="680" height="70" rx="18" fill="#edf4ff" stroke="#222" stroke-width="2"/>
+<text x="1100" y="170" font-family="Arial,sans-serif" font-size="28" fill="#245ba0" text-anchor="middle">vocab_size = 248,320</text>
+<rect x="1480" y="125" width="680" height="70" rx="18" fill="#edf4ff" stroke="#222" stroke-width="2"/>
+<text x="1820" y="170" font-family="Arial,sans-serif" font-size="28" fill="#245ba0" text-anchor="middle">max_position_embeddings = 262,144</text>
+<rect x="40" y="245" width="650" height="1180" rx="18" fill="#d4d4d4" stroke="#222" stroke-width="2"/>
+<text x="365" y="285" font-family="Arial,sans-serif" font-size="28" fill="#222" text-anchor="middle">01 / Overall network</text>
+<rect x="235" y="340" width="260" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="365.0" y="374.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">LM Head (tied)</text>
+<path d="M365 340 V310" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="535" y="330" font-family="Arial,sans-serif" font-size="20" fill="#222" text-anchor="middle">Logits</text>
+<rect x="235" y="440" width="260" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="365.0" y="474.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Final RMSNorm</text>
+<path d="M365 440 V392" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="115" y="545" width="510" height="665" rx="18" fill="#81a9e2" stroke="#222" stroke-width="2"/>
+<text x="370" y="585" font-family="Arial,sans-serif" font-size="27" fill="#222" text-anchor="middle">Decoder Block × 24</text>
+<circle cx="365" cy="640" r="19" fill="white" stroke="#222" stroke-width="2"/>
+<text x="365" y="648" font-family="Arial,sans-serif" font-size="27" fill="#222" text-anchor="middle">+</text>
+<path d="M365 621 V492" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="210" y="700" width="310" height="52" rx="18" fill="#fff0d4" stroke="#222" stroke-width="2"/>
+<text x="365.0" y="734.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">C / Dense SwiGLU FFN</text>
+<path d="M365 700 V659" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="230" y="805" width="270" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="365.0" y="839.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">RMSNorm</text>
+<path d="M365 805 V752" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<circle cx="365" cy="910" r="19" fill="white" stroke="#222" stroke-width="2"/>
+<text x="365" y="918" font-family="Arial,sans-serif" font-size="27" fill="#222" text-anchor="middle">+</text>
+<path d="M365 891 V857" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="195" y="980" width="340" height="70" rx="18" fill="#fffbdc" stroke="#222" stroke-width="2"/>
+<text x="365.0" y="1023.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">A / DeltaNet  OR  B / GQA</text>
+<path d="M365 980 V929" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="230" y="1120" width="270" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="365.0" y="1154.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">RMSNorm</text>
+<path d="M365 1120 V1050" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M365 1185 H580 V910 H386" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M365 875 H600 V640 H386" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="215" y="1270" width="300" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="365.0" y="1304.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Token / visual embeddings</text>
+<path d="M365 1270 V1172" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M215 1296 H90" fill="none" stroke="#222" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="95" y="1348" font-family="Arial,sans-serif" font-size="19" fill="#222" text-anchor="start">Embedding dimension</text>
+<text x="95" y="1380" font-family="Arial,sans-serif" font-size="27" fill="#c51676" text-anchor="start">1,024</text>
+<rect x="60" y="1510" width="220" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="170.0" y="1544.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Text token IDs</text>
+<path d="M170 1510 V1450 H300 V1322" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="355" y="1510" width="320" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="515.0" y="1544.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Images / video</text>
+<path d="M515 1510 V1475 H610 V1322 H515" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="745" y="245" width="750" height="810" rx="18" fill="white" stroke="#222" stroke-width="2" stroke-dasharray="6 7"/>
+<text x="1120" y="288" font-family="Arial,sans-serif" font-size="27" fill="#222" text-anchor="middle">A / Gated DeltaNet · 18 layers</text>
+<rect x="970" y="320" width="210" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1075.0" y="354.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Output Linear</text>
+<circle cx="1075" cy="430" r="19" fill="white" stroke="#222" stroke-width="2"/>
+<text x="1075" y="438" font-family="Arial,sans-serif" font-size="27" fill="#222" text-anchor="middle">×</text>
+<path d="M1075 411 V372" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="970" y="490" width="210" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="1075.0" y="524.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">RMSNorm</text>
+<path d="M1075 490 V449" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="775" y="600" width="570" height="52" rx="18" fill="#ffffd5" stroke="#222" stroke-width="2"/>
+<text x="1060.0" y="634.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Gated Delta Rule</text>
+<path d="M1075 600 V542" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="755" y="940" width="110" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="810.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<rect x="755" y="830" width="110" height="52" rx="18" fill="#ff9892" stroke="#222" stroke-width="2"/>
+<text x="810.0" y="864.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Conv</text>
+<path d="M810 940 V882" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="755" y="720" width="110" height="52" rx="18" fill="#ffdf80" stroke="#222" stroke-width="2"/>
+<text x="810.0" y="754.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">L2 Norm</text>
+<path d="M810 830 V772" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M810 720 V652" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="785" y="690" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Q</text>
+<rect x="885" y="940" width="110" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="940.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<rect x="885" y="830" width="110" height="52" rx="18" fill="#ff9892" stroke="#222" stroke-width="2"/>
+<text x="940.0" y="864.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Conv</text>
+<path d="M940 940 V882" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="885" y="720" width="110" height="52" rx="18" fill="#ffdf80" stroke="#222" stroke-width="2"/>
+<text x="940.0" y="754.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">L2 Norm</text>
+<path d="M940 830 V772" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M940 720 V652" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="915" y="690" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">K</text>
+<rect x="1015" y="940" width="110" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1070.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<rect x="1015" y="830" width="110" height="52" rx="18" fill="#ff9892" stroke="#222" stroke-width="2"/>
+<text x="1070.0" y="864.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Conv</text>
+<path d="M1070 940 V882" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M1070 830 V652" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1045" y="690" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">V</text>
+<rect x="1140" y="940" width="100" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1190.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<path d="M1190 940 V652" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1165" y="700" font-family="Arial,sans-serif" font-size="23" fill="#222" text-anchor="middle">α</text>
+<rect x="1250" y="940" width="100" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1300.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<path d="M1300 940 V652" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1275" y="700" font-family="Arial,sans-serif" font-size="23" fill="#222" text-anchor="middle">β</text>
+<rect x="1360" y="940" width="100" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1410.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<rect x="1360" y="720" width="100" height="52" rx="18" fill="#edf4ff" stroke="#222" stroke-width="2"/>
+<text x="1410.0" y="754.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">SiLU</text>
+<path d="M1410 940 V772" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M1410 720 V430 H1094" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1410" y="915" font-family="Arial,sans-serif" font-size="19" fill="#222" text-anchor="middle">SiLU gate</text>
+<text x="1120" y="1030" font-family="Arial,sans-serif" font-size="20" fill="#222" text-anchor="middle">Q/K: 16 × 128 · V: 16 × 128 · Conv kernel: 4 · SiLU activation</text>
+<rect x="1530" y="245" width="630" height="810" rx="18" fill="white" stroke="#222" stroke-width="2" stroke-dasharray="6 7"/>
+<text x="1845" y="288" font-family="Arial,sans-serif" font-size="27" fill="#222" text-anchor="middle">B / Gated GQA · 6 layers</text>
+<rect x="1740" y="320" width="210" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1845.0" y="354.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Output Linear</text>
+<circle cx="1845" cy="430" r="19" fill="white" stroke="#222" stroke-width="2"/>
+<text x="1845" y="438" font-family="Arial,sans-serif" font-size="27" fill="#222" text-anchor="middle">×</text>
+<path d="M1845 411 V372" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="1560" y="550" width="430" height="70" rx="18" fill="#ffffd5" stroke="#222" stroke-width="2"/>
+<text x="1775.0" y="593.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Causal scaled dot-product</text>
+<path d="M1845 550 V449" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="1575" y="940" width="110" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1630.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<rect x="1570" y="740" width="120" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="1630.0" y="774.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">RMSNorm</text>
+<path d="M1630 940 V792" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M1630 740 V620" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1606" y="704" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Q</text>
+<rect x="1715" y="940" width="110" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1770.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<rect x="1710" y="740" width="120" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="1770.0" y="774.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">RMSNorm</text>
+<path d="M1770 940 V792" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M1770 740 V620" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1746" y="704" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">K</text>
+<rect x="1855" y="940" width="110" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="1910.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<path d="M1910 940 V620" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1886" y="704" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">V</text>
+<rect x="2015" y="940" width="110" height="52" rx="18" fill="#d5d5d5" stroke="#222" stroke-width="2"/>
+<text x="2070.0" y="974.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Linear</text>
+<rect x="2000" y="740" width="140" height="52" rx="18" fill="#edf4ff" stroke="#222" stroke-width="2"/>
+<text x="2070.0" y="774.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Sigmoid</text>
+<path d="M2070 940 V792" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M2070 740 V430 H1864" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1775" y="665" font-family="Arial,sans-serif" font-size="20" fill="#666" text-anchor="middle">Q/K: partial RoPE</text>
+<text x="1845" y="1030" font-family="Arial,sans-serif" font-size="20" fill="#222" text-anchor="middle">8 Q heads · 2 KV heads · head_dim 256</text>
+<rect x="745" y="1090" width="1415" height="425" rx="18" fill="white" stroke="#222" stroke-width="2" stroke-dasharray="6 7"/>
+<text x="1450" y="1130" font-family="Arial,sans-serif" font-size="28" fill="#222" text-anchor="middle">C / Dense SwiGLU FFN · every decoder layer</text>
+<rect x="1305" y="1160" width="290" height="52" rx="18" fill="#fff0d4" stroke="#222" stroke-width="2"/>
+<text x="1450.0" y="1194.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Down projection → 1,024</text>
+<circle cx="1450" cy="1255" r="19" fill="white" stroke="#222" stroke-width="2"/>
+<text x="1450" y="1263" font-family="Arial,sans-serif" font-size="27" fill="#222" text-anchor="middle">×</text>
+<path d="M1450 1236 V1212" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<rect x="930" y="1380" width="300" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="1080.0" y="1414.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Gate projection → 3,584</text>
+<rect x="1670" y="1380" width="300" height="52" rx="18" fill="white" stroke="#222" stroke-width="2"/>
+<text x="1820.0" y="1414.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Up projection → 3,584</text>
+<rect x="990" y="1290" width="180" height="52" rx="18" fill="#edf4ff" stroke="#222" stroke-width="2"/>
+<text x="1080.0" y="1324.0" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">SiLU</text>
+<path d="M1080 1380 V1342" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M1080 1290 V1255 H1431" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M1820 1380 V1255 H1469" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M1450 1490 H1080 V1432" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<path d="M1450 1490 H1820 V1432" fill="none" stroke="#222" stroke-width="2" marker-end="url(#a)"/>
+<text x="1450" y="1475" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Input hidden states · 1,024</text>
+<text x="1100" y="1575" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">Vision: patch embed → 12 ViT blocks → spatial merger → 1,024-d features</text>
+<text x="1100" y="1610" font-family="Arial,sans-serif" font-size="22" fill="#222" text-anchor="middle">24 layers = [3 × A + 1 × B] × 6; every layer has C. MTP: 1 auxiliary layer (not in main path).</text>
+</svg>

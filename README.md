@@ -18,7 +18,7 @@ Run:
 python3 scripts/crawl_qwen_hf_configs.py
 ```
 
-The output is written to `artifacts/data/hf_qwen_configs/`. Each raw config is
+The output is written to `models/_raw_qwen_configs/`. Each raw config is
 stored by family; `manifest.json` contains its Hugging Face URL, SHA-256 and
 the most useful architecture fields for every downloaded model. For native
 multimodal Qwen3.5 checkpoints, language-model fields also appear with a
@@ -30,7 +30,7 @@ To create compact, diagram-ready structure files from the downloaded configs:
 python3 scripts/extract_qwen_structures.py
 ```
 
-The resulting `artifacts/structures/qwen/` directory keeps only the
+The resulting `models/_qwen_structures/` directory keeps only the
 model-structure fields: backbone dimensions, attention, MLP/MoE, normalization,
 position encoding, input/output heads and an explicit `layer_schedule` when
 the checkpoint declares one. It does not invent a schedule for models whose
@@ -41,10 +41,8 @@ configs do not declare it.
 ```text
 scripts/                         Data collection, normalization, rendering and checks
 docs/                            Diagram and structure documentation
+models/                           Per-model config, spec, SVG, PNG and manifest
 artifacts/
-├── data/hf_qwen_configs/        Raw Hugging Face configs and manifest
-├── structures/qwen/             Diagram-ready JSON structures
-├── diagram_specs/               Validated full-diagram specifications
 └── diagrams/templates/
     ├── main_network/            Whole-network backbone templates
     └── components/              Attention, MoE, SwiGLU and other submodules
@@ -58,7 +56,7 @@ Qwen3.6 example with:
 
 ```bash
 python3 scripts/build_model_diagram.py \\
-  artifacts/diagram_specs/qwen3.6-35b-a3b.json
+  models/qwen3.6-35b-a3b/spec.json
 ```
 
 This validates the drawing specification against the saved official config,

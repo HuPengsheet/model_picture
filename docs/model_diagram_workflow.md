@@ -7,9 +7,9 @@
 每个模型都使用以下文件：
 
 ```text
-artifacts/data/hf_qwen_configs/<family>/<model>.json  # 官方 config 原文
-artifacts/diagram_specs/<model>.json                  # 经确认的绘图规格
-artifacts/diagrams/models/<model>/
+models/<model>/
+├── config.json                                      # 官方 config 原文
+├── spec.json                                        # 经确认的绘图规格
 ├── architecture.svg                                 # 可编辑交付图
 ├── architecture.png                                 # 视觉复核预览
 └── manifest.json                                    # 来源与产物清单
@@ -20,7 +20,7 @@ scripts/render_<model>_architecture.py                # 模型布局适配器
 
 ## 2. 从事实到结构规格
 
-先下载官方 `config.json`，保存到 `artifacts/data/`。然后创建 `artifacts/diagram_specs/<model>.json`，至少包含：
+先下载官方 `config.json`，保存为 `models/<model>/config.json`。然后创建 `models/<model>/spec.json`，至少包含：
 
 - 模型名、Hugging Face 仓库和配置路径；
 - `hidden_size`、`vocab_size`、`max_position_embeddings`；
@@ -34,7 +34,7 @@ scripts/render_<model>_architecture.py                # 模型布局适配器
 
 ```bash
 python3 scripts/validate_diagram_spec.py \
-  artifacts/diagram_specs/qwen3.6-35b-a3b.json
+  models/qwen3.6-35b-a3b/spec.json
 ```
 
 检查器会把规格与保存的配置逐项比较，并展开重复层模式，防止层数或调度标错。
@@ -66,7 +66,7 @@ max_position_embeddings
 
 ```bash
 python3 scripts/build_model_diagram.py \
-  artifacts/diagram_specs/qwen3.6-35b-a3b.json
+  models/qwen3.6-35b-a3b/spec.json
 ```
 
 该命令依次完成：
@@ -100,7 +100,7 @@ CI 没有浏览器时可以使用 `--skip-preview`，但正式交付前必须生
 
 ```bash
 python3 scripts/build_model_diagram.py \
-  artifacts/diagram_specs/qwen3.6-35b-a3b.json
+  models/qwen3.6-35b-a3b/spec.json
 ```
 
 它验证并绘制 40 层混合调度、Gated DeltaNet、Gated GQA、每层 Sparse MoE、视觉编码器以及三个必需参数。

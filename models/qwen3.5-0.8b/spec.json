@@ -1,0 +1,19 @@
+{
+  "model_name": "Qwen3.5-0.8B",
+  "repository": "Qwen/Qwen3.5-0.8B",
+  "config_file": "models/qwen3.5-0.8b/config.json",
+  "output_directory": "models/qwen3.5-0.8b",
+  "renderer": "scripts/render_qwen35_08b_architecture.py",
+  "required_parameters": {"hidden_size": 1024, "vocab_size": 248320, "max_position_embeddings": 262144},
+  "text_backbone": {
+    "num_hidden_layers": 24,
+    "layer_pattern": ["linear_attention", "linear_attention", "linear_attention", "full_attention"],
+    "pattern_repetitions": 6,
+    "components": ["gated_delta_rule", "gated_gqa", "swiglu"]
+  },
+  "vision_backbone": {"enabled": true, "depth": 12, "output_hidden_size": 1024},
+  "sources": {
+    "config": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/main/config.json",
+    "implementation": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/qwen3_5/modeling_qwen3_5.py"
+  }
+}
