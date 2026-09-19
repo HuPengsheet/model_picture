@@ -1,0 +1,12 @@
+{
+  "model_name": "DeepSeek-R1-671B",
+  "repository": "deepseek-ai/DeepSeek-R1",
+  "spec": "models/deepseek-r1-671b/spec.json",
+  "config": "models/deepseek-r1-671b/config.json",
+  "svg": "models/deepseek-r1-671b/architecture.svg",
+  "png": "models/deepseek-r1-671b/architecture.png",
+  "sources": {
+    "config": "https://huggingface.co/deepseek-ai/DeepSeek-R1/raw/main/config.json",
+    "implementation": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/main/modeling_deepseek.py"
+  }
+}

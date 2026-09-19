@@ -1,0 +1,22 @@
+{
+  "model_name": "DeepSeek-R1-671B",
+  "repository": "deepseek-ai/DeepSeek-R1",
+  "config_file": "models/deepseek-r1-671b/config.json",
+  "output_directory": "models/deepseek-r1-671b",
+  "renderer": "scripts/render_deepseek_r1_architecture.py",
+  "required_parameters": {"hidden_size": 7168, "vocab_size": 129280, "max_position_embeddings": 163840},
+  "text_backbone": {
+    "num_hidden_layers": 61,
+    "components": ["mla", "dense_ffn", "sparse_moe"],
+    "num_experts": 256,
+    "num_experts_per_token": 8,
+    "num_shared_experts": 1,
+    "first_k_dense_replace": 3,
+    "moe_layer_frequency": 1
+  },
+  "vision_backbone": {"enabled": false},
+  "sources": {
+    "config": "https://huggingface.co/deepseek-ai/DeepSeek-R1/raw/main/config.json",
+    "implementation": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/main/modeling_deepseek.py"
+  }
+}

@@ -11,7 +11,7 @@ from pathlib import Path
 REQUIRED_PARAMETERS = ("hidden_size", "vocab_size", "max_position_embeddings")
 SUPPORTED_COMPONENTS = {
     "multi_head_attention", "sliding_window_attention", "gqa", "gated_attention",
-    "gated_delta_rule", "gated_gqa", "swiglu", "sparse_moe",
+    "gated_delta_rule", "gated_gqa", "mla", "dense_ffn", "swiglu", "sparse_moe",
 }
 
 
@@ -53,12 +53,13 @@ def validate(spec_path: Path) -> dict:
     unknown = set(backbone.get("components", [])) - SUPPORTED_COMPONENTS
     if unknown:
         fail(f"unsupported component names: {', '.join(sorted(unknown))}")
-    for spec_key, config_key in (
-        ("num_experts", "num_experts"),
-        ("num_experts_per_token", "num_experts_per_tok"),
+    for spec_key, config_keys in (
+        ("num_experts", ("num_experts", "n_routed_experts")),
+        ("num_experts_per_token", ("num_experts_per_tok",)),
     ):
-        if spec_key in backbone and backbone[spec_key] != text_config.get(config_key):
-            fail(f"{spec_key} does not match config.{config_key}")
+        configured = next((text_config[key] for key in config_keys if key in text_config), None)
+        if spec_key in backbone and backbone[spec_key] != configured:
+            fail(f"{spec_key} does not match config ({'/'.join(config_keys)})")
     return spec
 
 
