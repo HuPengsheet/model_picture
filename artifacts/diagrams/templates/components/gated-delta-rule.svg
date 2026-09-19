@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1272" viewBox="0 0 1100 1272">
+  <title>Gated Delta Rule architecture</title>
+  <desc>Editable vector recreation of the supplied diagram, preserving its original layout, colors, labels and overlapping blocks.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="20" markerHeight="20" refX="16" refY="10" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0,1 L 18,10 L 0,19 Z" fill="#111"/>
+    </marker>
+    <style>
+      .wire { fill:none; stroke:#222; stroke-width:2.8; }
+      .box { stroke:#181818; stroke-width:3; }
+      .label { font-family:Arial, Helvetica, sans-serif; fill:#111; text-anchor:middle; font-weight:400; }
+      .linear { fill:#d5d5d5; }
+      .conv { fill:#ff9892; }
+      .norm { fill:#ffdf80; }
+      .operator { fill:white; stroke:#202020; stroke-width:2.8; }
+      .panel { fill:white; stroke:#111; stroke-width:5; stroke-dasharray:7 8; }
+      .title { font-family:Arial, Helvetica, sans-serif; fill:#111; text-anchor:middle; font-weight:700; }
+    </style>
+  </defs>
+  <rect width="1100" height="1272" fill="white"/>
+  <text class="title" x="550" y="48" font-size="42">Gated Delta Rule</text>
+  <g transform="translate(0 70)">
+  <rect class="panel" x="22" y="4" width="1056" height="1192" rx="64"/>
+
+  <!-- Connections are drawn beneath the blocks, just as in the reference. -->
+  <g class="wire">
+    <path d="M466.5 388 V109" marker-end="url(#arrow)"/>
+    <path d="M502 220.5 H908"/>
+    <path d="M910.5 217 V1050"/>
+    <path d="M252.5 1052 V496" marker-end="url(#arrow)"/>
+    <path d="M284.5 1088 V495" marker-end="url(#arrow)"/>
+    <path d="M468.5 1052 V499" marker-end="url(#arrow)"/>
+    <path d="M688.5 1051 V496" marker-end="url(#arrow)"/>
+    <path d="M720.5 1096 V498" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Output projection. -->
+  <rect class="box linear" x="376.5" y="12" width="177.5" height="94" rx="28"/>
+  <text class="label" x="464" y="72" font-size="38">Linear</text>
+  <circle class="operator" cx="466.5" cy="218" r="36"/>
+  <path d="M442 194 L491 242 M491 194 L442 242" fill="none" stroke="#111" stroke-width="6"/>
+  <rect class="box" x="364" y="270.5" width="194.5" height="93" rx="27" fill="white"/>
+  <text class="label" x="463.5" y="330" font-size="32">RMSNorm</text>
+
+  <!-- Recurrent mixing block. -->
+  <rect class="box" x="151.5" y="388" width="632.5" height="92.5" rx="26" fill="#ffffd5"/>
+  <text class="label" x="465" y="446" font-size="38">Gated Delta Rule</text>
+
+  <g class="label" font-size="58">
+    <text x="213.5" y="594">Q</text>
+    <text x="309.5" y="599">K</text>
+    <text x="495.5" y="728">V</text>
+  </g>
+  <g fill="#111" font-family="Times New Roman, Times, serif" font-style="italic" font-size="70" text-anchor="middle">
+    <text x="650" y="727">α</text>
+    <text x="759" y="727">β</text>
+  </g>
+
+  <!-- The paired Q/K normalization blocks deliberately overlap. -->
+  <rect class="box norm" x="159.5" y="645.5" width="177" height="93" rx="26"/>
+  <rect class="box norm" x="189.5" y="672" width="176.5" height="92.5" rx="25"/>
+  <text class="label" x="275" y="730" font-size="36">L2 Norm</text>
+
+  <!-- Activation circles. -->
+  <g>
+    <circle class="operator" cx="248.5" cy="835" r="36"/>
+    <text x="248.5" y="854" text-anchor="middle" fill="#080808" font-family="Times New Roman, Times, serif" font-style="italic" font-size="76">σ</text>
+    <circle class="operator" cx="284.5" cy="849" r="36"/>
+    <text x="284.5" y="868" text-anchor="middle" fill="#080808" font-family="Times New Roman, Times, serif" font-style="italic" font-size="76">σ</text>
+    <circle class="operator" cx="471.5" cy="823" r="36"/>
+    <text x="471.5" y="842" text-anchor="middle" fill="#080808" font-family="Times New Roman, Times, serif" font-style="italic" font-size="76">σ</text>
+    <circle class="operator" cx="908.5" cy="597" r="36"/>
+    <text x="908.5" y="616" text-anchor="middle" fill="#080808" font-family="Times New Roman, Times, serif" font-style="italic" font-size="76">σ</text>
+  </g>
+  <g class="label" font-size="38">
+    <text x="1025" y="586">SiLU</text>
+    <text x="1025" y="632">Gate</text>
+  </g>
+
+  <!-- Short exposed connections on the rear Q/K blocks. -->
+  <rect class="box conv" x="150" y="893" width="177" height="92.5" rx="26"/>
+  <path class="wire" d="M284.5 893 V920"/>
+  <rect class="box conv" x="179" y="919.5" width="177" height="93" rx="26"/>
+  <text class="label" x="266" y="979.5" font-size="38">Conv</text>
+  <rect class="box conv" x="376" y="893" width="177" height="92.5" rx="26"/>
+  <text class="label" x="461.5" y="953" font-size="38">Conv</text>
+
+  <!-- Input projections, with the original layered arrangement. -->
+  <rect class="box linear" x="152" y="1051" width="177" height="93" rx="26"/>
+  <text class="label" x="239" y="1111" font-size="38">Linear</text>
+  <path class="wire" d="M284.5 1051 V1088"/>
+  <rect class="box linear" x="174.5" y="1086.5" width="177" height="93" rx="26"/>
+  <text class="label" x="260.5" y="1147" font-size="38">Linear</text>
+
+  <rect class="box linear" x="376.5" y="1051" width="177" height="93" rx="26"/>
+  <text class="label" x="463" y="1111" font-size="38">Linear</text>
+
+  <rect class="box linear" x="592.5" y="1051" width="177" height="93" rx="26"/>
+  <text class="label" x="679" y="1111" font-size="38">Linear</text>
+  <path class="wire" d="M720.5 1051 V1094"/>
+  <rect class="box linear" x="619" y="1093" width="177" height="93" rx="26"/>
+  <text class="label" x="705.5" y="1153" font-size="38">Linear</text>
+
+  <rect class="box linear" x="821.5" y="1049.5" width="177" height="93" rx="28"/>
+  <text class="label" x="907.5" y="1110" font-size="38">Linear</text>
+  </g>
+</svg>

@@ -88,7 +88,7 @@ def summary(record: dict) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, default=Path("artifacts/hf_qwen_configs"))
+    parser.add_argument("--output", type=Path, default=Path("artifacts/data/hf_qwen_configs"))
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
     output = args.output

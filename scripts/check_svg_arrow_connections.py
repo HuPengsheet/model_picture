@@ -236,6 +236,50 @@ def path_segments(path_data: str) -> list[tuple[float, float, float, float]]:
     return segments
 
 
+def segment_length(segment: tuple[float, float, float, float]) -> float:
+    x1, y1, x2, y2 = segment
+    return math.hypot(x2 - x1, y2 - y1)
+
+
+def arrow_path_failures(
+    root: ElementTree.Element, min_length: float, join_tolerance: float
+) -> list[str]:
+    """Reject tiny arrows and consecutive arrowheads on one connector."""
+    arrows = []
+    failures = []
+    for index, node in enumerate(root.iter(NS + "path"), start=1):
+        if not (classes(node) & {"flow", "residual"}):
+            continue
+        segments = path_segments(node.attrib["d"])
+        if not segments:
+            continue
+        length = sum(segment_length(segment) for segment in segments)
+        if length < min_length:
+            failures.append(
+                f"path {index}: arrow line is only {length:.1f}px long "
+                f"(minimum {min_length:g}px)"
+            )
+        first = segments[0]
+        last = segments[-1]
+        arrows.append((index, first[0], first[1], last[2], last[3], last))
+
+    for index, x1, y1, x2, y2, last in arrows:
+        for other_index, ox1, oy1, ox2, oy2, _ in arrows:
+            if index == other_index:
+                continue
+            if math.hypot(x2 - ox1, y2 - oy1) > join_tolerance:
+                continue
+            # Two arrow paths meeting at an endpoint create two arrowheads.
+            if segment_length(last) == 0:
+                continue
+            failures.append(
+                f"paths {index} and {other_index}: consecutive arrowheads meet at "
+                f"({x2:g}, {y2:g})"
+            )
+            break
+    return failures
+
+
 def segment_intersects_rect(
     x1: float, y1: float, x2: float, y2: float,
     left: float, top: float, width: float, height: float,
@@ -327,6 +371,10 @@ def main() -> int:
                         help="minimum vertical gap for horizontally aligned model boxes (default: 32px)")
     parser.add_argument("--min-text-gap", type=float, default=6.0,
                         help="minimum vertical gap for vertically stacked labels (default: 6px)")
+    parser.add_argument("--min-arrow-length", type=float, default=24.0,
+                        help="minimum length of a flow/residual arrow line (default: 24px)")
+    parser.add_argument("--arrow-join-tolerance", type=float, default=0.5,
+                        help="endpoint tolerance for detecting consecutive arrowheads (default: 0.5px)")
     args = parser.parse_args()
 
     root = ElementTree.parse(args.svg).getroot()
@@ -358,6 +406,7 @@ def main() -> int:
                 f"inside/touching sum circle ({cx:g}, {cy:g}, r={radius:g})"
             )
     failures.extend(spacing_failures(frame_rectangles(root), args.min_rectangle_gap))
+    failures.extend(arrow_path_failures(root, args.min_arrow_length, args.arrow_join_tolerance))
     text_layout = text_boxes(root)
     failures.extend(text_overlap_failures(text_layout))
     failures.extend(text_spacing_failures(text_layout, args.min_text_gap))

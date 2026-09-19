@@ -1,0 +1,12 @@
+{
+  "model_name": "Qwen3.6-35B-A3B",
+  "repository": "Qwen/Qwen3.6-35B-A3B",
+  "spec": "artifacts/diagram_specs/qwen3.6-35b-a3b.json",
+  "config": "artifacts/data/hf_qwen_configs/Qwen3.6/Qwen3.6-35B-A3B.json",
+  "svg": "artifacts/diagrams/models/qwen3.6-35b-a3b/architecture.svg",
+  "png": "artifacts/diagrams/models/qwen3.6-35b-a3b/architecture.png",
+  "sources": {
+    "config": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/raw/main/config.json",
+    "implementation": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py"
+  }
+}

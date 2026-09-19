@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1202" viewBox="0 0 1100 1202">
+<title>Multi-Head Attention</title>
+<desc>Multi-head attention with separate Q, K, V projections for each head, scaled dot-product attention, concatenation and an output projection. Three overlapping layers represent h parallel heads.</desc>
+<defs><marker id="arrow" markerWidth="17" markerHeight="17" refX="15" refY="8.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L17 8.5 L0 17 Z" fill="#181818"/></marker>
+<style>.line{fill:none;stroke:#222;stroke-width:2.8;stroke-linejoin:round}.box{stroke:#181818;stroke-width:3}.text{font-family:Arial,Helvetica,sans-serif;fill:#111;text-anchor:middle;font-weight:400}.math{font-family:'Times New Roman',Times,serif;fill:#111;text-anchor:middle;font-style:italic}</style></defs>
+<rect width="1100" height="1202" fill="white"/>
+
+<text class="text" x="550" y="64" font-size="44">Multi-Head Attention</text>
+<text class="text" x="550" y="140" font-size="30">Output</text>
+<path class="line" d="M550 186 V155" marker-end="url(#arrow)"/>
+<rect class="box" x="442" y="188" width="216" height="92" rx="25" fill="#d5d5d5"/>
+<text class="text" x="550" y="246" font-size="38">Linear</text>
+<text class="math" x="689" y="244" font-size="29">Wᴼ</text>
+<path class="line" d="M550 356 V283" marker-end="url(#arrow)"/>
+<rect class="box" x="227" y="358" width="646" height="92" rx="25" fill="#ff9892"/>
+<text class="text" x="550" y="416" font-size="38">Concat</text>
+<path class="line" d="M408 566 V453" marker-end="url(#arrow)"/>
+<path class="line" d="M550 542 V453" marker-end="url(#arrow)"/>
+<path class="line" d="M692 518 V453" marker-end="url(#arrow)"/>
+<path class="line" d="M333 802 V678" marker-end="url(#arrow)"/>
+<path class="line" d="M573 802 V678" marker-end="url(#arrow)"/>
+<path class="line" d="M813 802 V678" marker-end="url(#arrow)"/>
+<path class="line" d="M309 826 V702" marker-end="url(#arrow)"/>
+<path class="line" d="M549 826 V702" marker-end="url(#arrow)"/>
+<path class="line" d="M789 826 V702" marker-end="url(#arrow)"/>
+<path class="line" d="M285 850 V726" marker-end="url(#arrow)"/>
+<path class="line" d="M525 850 V726" marker-end="url(#arrow)"/>
+<path class="line" d="M765 850 V726" marker-end="url(#arrow)"/>
+<rect class="box" x="213" y="518" width="720" height="158" rx="25" fill="#ffffd5"/>
+<rect class="box" x="189" y="542" width="720" height="158" rx="25" fill="#ffffd5"/>
+<rect class="box" x="165" y="566" width="720" height="158" rx="25" fill="#ffffd5"/>
+<text class="text" x="525" y="623" font-size="36">Scaled Dot-Product Attention</text>
+<text class="math" x="525" y="679" font-size="31">softmax(QᵢKᵢᵀ / √dₖ) Vᵢ</text>
+<path class="line" d="M954 519 H970 V724 H954"/>
+<text class="math" x="1009" y="607" font-size="34">h</text>
+<text class="text" x="1010" y="646" font-size="23">heads</text>
+<text class="math" x="243" y="780" font-size="32">Qᵢ</text>
+<text class="math" x="483" y="780" font-size="32">Kᵢ</text>
+<text class="math" x="723" y="780" font-size="32">Vᵢ</text>
+<path class="line" d="M285 1100 V947" marker-end="url(#arrow)"/>
+<path class="line" d="M285 1068 H309 V923" marker-end="url(#arrow)"/>
+<path class="line" d="M285 1080 H333 V899" marker-end="url(#arrow)"/>
+<path class="line" d="M525 1100 V947" marker-end="url(#arrow)"/>
+<path class="line" d="M525 1068 H549 V923" marker-end="url(#arrow)"/>
+<path class="line" d="M525 1080 H573 V899" marker-end="url(#arrow)"/>
+<path class="line" d="M765 1100 V947" marker-end="url(#arrow)"/>
+<path class="line" d="M765 1068 H789 V923" marker-end="url(#arrow)"/>
+<path class="line" d="M765 1080 H813 V899" marker-end="url(#arrow)"/>
+<rect class="box" x="245" y="802" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<rect class="box" x="485" y="802" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<rect class="box" x="725" y="802" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<rect class="box" x="221" y="826" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<rect class="box" x="461" y="826" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<rect class="box" x="701" y="826" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<rect class="box" x="197" y="850" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<rect class="box" x="437" y="850" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<rect class="box" x="677" y="850" width="176" height="94" rx="25" fill="#d5d5d5"/>
+<text class="text" x="285" y="910" font-size="36">Linear</text>
+<text class="text" x="525" y="910" font-size="36">Linear</text>
+<text class="text" x="765" y="910" font-size="36">Linear</text>
+<text class="math" x="231" y="994" font-size="28">W<tspan baseline-shift="sub" font-size="19">i</tspan><tspan baseline-shift="super" font-size="19">Q</tspan></text>
+<text class="math" x="471" y="994" font-size="28">W<tspan baseline-shift="sub" font-size="19">i</tspan><tspan baseline-shift="super" font-size="19">K</tspan></text>
+<text class="math" x="711" y="994" font-size="28">W<tspan baseline-shift="sub" font-size="19">i</tspan><tspan baseline-shift="super" font-size="19">V</tspan></text>
+<text class="text" x="285" y="1157" font-size="54">Q</text>
+<text class="text" x="525" y="1157" font-size="54">K</text>
+<text class="text" x="765" y="1157" font-size="54">V</text>
+</svg>
