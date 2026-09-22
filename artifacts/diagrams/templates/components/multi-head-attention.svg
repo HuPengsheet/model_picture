@@ -1,67 +1,116 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1202" viewBox="0 0 1100 1202">
-<title>Multi-Head Attention</title>
-<desc>Multi-head attention with separate Q, K, V projections for each head, scaled dot-product attention, concatenation and an output projection. Three overlapping layers represent h parallel heads.</desc>
-<defs><marker id="arrow" markerWidth="17" markerHeight="17" refX="15" refY="8.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L17 8.5 L0 17 Z" fill="#181818"/></marker>
-<style>.line{fill:none;stroke:#222;stroke-width:2.8;stroke-linejoin:round}.box{stroke:#181818;stroke-width:3}.text{font-family:Arial,Helvetica,sans-serif;fill:#111;text-anchor:middle;font-weight:400}.math{font-family:'Times New Roman',Times,serif;fill:#111;text-anchor:middle;font-style:italic}</style></defs>
-<rect width="1100" height="1202" fill="white"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="980" viewBox="0 0 900 980">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a1a1a"/>
+    </marker>
+    <style>
+      .sans { font-family: Arial, Helvetica, sans-serif; fill:#111; }
+      .math { font-family: "Times New Roman", serif; font-style: italic; fill:#111; }
+      .title { font-size: 34px; font-weight: 700; }
+      .label { font-size: 24px; }
+      .small { font-size: 17px; }
+      .tiny { font-size: 15px; }
+      .box { stroke:#1a1a1a; stroke-width:2.2; }
+      .gray { fill:#d8d8d8; }
+      .pink { fill:#f7938f; }
+      .yellow { fill:#fffed6; }
+      .latent { fill:#f6d7a8; }
+      .cache { fill:#f6d9d7; stroke-dasharray:7 5; }
+      .wire { fill:none; stroke:#1a1a1a; stroke-width:2.1; marker-end:url(#arrow); stroke-linecap:round; stroke-linejoin:round; }
+      .wire-noarrow { fill:none; stroke:#1a1a1a; stroke-width:2.1; stroke-linecap:round; stroke-linejoin:round; }
+      .dash { fill:none; stroke:#1a1a1a; stroke-width:1.9; stroke-dasharray:7 5; marker-end:url(#arrow); }
+    </style>
+  </defs>
 
-<text class="text" x="550" y="64" font-size="44">Multi-Head Attention</text>
-<text class="text" x="550" y="140" font-size="30">Output</text>
-<path class="line" d="M550 186 V155" marker-end="url(#arrow)"/>
-<rect class="box" x="442" y="188" width="216" height="92" rx="25" fill="#d5d5d5"/>
-<text class="text" x="550" y="246" font-size="38">Linear</text>
-<text class="math" x="689" y="244" font-size="29">Wᴼ</text>
-<path class="line" d="M550 356 V283" marker-end="url(#arrow)"/>
-<rect class="box" x="227" y="358" width="646" height="92" rx="25" fill="#ff9892"/>
-<text class="text" x="550" y="416" font-size="38">Concat</text>
-<path class="line" d="M408 566 V453" marker-end="url(#arrow)"/>
-<path class="line" d="M550 542 V453" marker-end="url(#arrow)"/>
-<path class="line" d="M692 518 V453" marker-end="url(#arrow)"/>
-<path class="line" d="M333 802 V678" marker-end="url(#arrow)"/>
-<path class="line" d="M573 802 V678" marker-end="url(#arrow)"/>
-<path class="line" d="M813 802 V678" marker-end="url(#arrow)"/>
-<path class="line" d="M309 826 V702" marker-end="url(#arrow)"/>
-<path class="line" d="M549 826 V702" marker-end="url(#arrow)"/>
-<path class="line" d="M789 826 V702" marker-end="url(#arrow)"/>
-<path class="line" d="M285 850 V726" marker-end="url(#arrow)"/>
-<path class="line" d="M525 850 V726" marker-end="url(#arrow)"/>
-<path class="line" d="M765 850 V726" marker-end="url(#arrow)"/>
-<rect class="box" x="213" y="518" width="720" height="158" rx="25" fill="#ffffd5"/>
-<rect class="box" x="189" y="542" width="720" height="158" rx="25" fill="#ffffd5"/>
-<rect class="box" x="165" y="566" width="720" height="158" rx="25" fill="#ffffd5"/>
-<text class="text" x="525" y="623" font-size="36">Scaled Dot-Product Attention</text>
-<text class="math" x="525" y="679" font-size="31">softmax(QᵢKᵢᵀ / √dₖ) Vᵢ</text>
-<path class="line" d="M954 519 H970 V724 H954"/>
-<text class="math" x="1009" y="607" font-size="34">h</text>
-<text class="text" x="1010" y="646" font-size="23">heads</text>
-<text class="math" x="243" y="780" font-size="32">Qᵢ</text>
-<text class="math" x="483" y="780" font-size="32">Kᵢ</text>
-<text class="math" x="723" y="780" font-size="32">Vᵢ</text>
-<path class="line" d="M285 1100 V947" marker-end="url(#arrow)"/>
-<path class="line" d="M285 1068 H309 V923" marker-end="url(#arrow)"/>
-<path class="line" d="M285 1080 H333 V899" marker-end="url(#arrow)"/>
-<path class="line" d="M525 1100 V947" marker-end="url(#arrow)"/>
-<path class="line" d="M525 1068 H549 V923" marker-end="url(#arrow)"/>
-<path class="line" d="M525 1080 H573 V899" marker-end="url(#arrow)"/>
-<path class="line" d="M765 1100 V947" marker-end="url(#arrow)"/>
-<path class="line" d="M765 1068 H789 V923" marker-end="url(#arrow)"/>
-<path class="line" d="M765 1080 H813 V899" marker-end="url(#arrow)"/>
-<rect class="box" x="245" y="802" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<rect class="box" x="485" y="802" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<rect class="box" x="725" y="802" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<rect class="box" x="221" y="826" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<rect class="box" x="461" y="826" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<rect class="box" x="701" y="826" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<rect class="box" x="197" y="850" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<rect class="box" x="437" y="850" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<rect class="box" x="677" y="850" width="176" height="94" rx="25" fill="#d5d5d5"/>
-<text class="text" x="285" y="910" font-size="36">Linear</text>
-<text class="text" x="525" y="910" font-size="36">Linear</text>
-<text class="text" x="765" y="910" font-size="36">Linear</text>
-<text class="math" x="231" y="994" font-size="28">W<tspan baseline-shift="sub" font-size="19">i</tspan><tspan baseline-shift="super" font-size="19">Q</tspan></text>
-<text class="math" x="471" y="994" font-size="28">W<tspan baseline-shift="sub" font-size="19">i</tspan><tspan baseline-shift="super" font-size="19">K</tspan></text>
-<text class="math" x="711" y="994" font-size="28">W<tspan baseline-shift="sub" font-size="19">i</tspan><tspan baseline-shift="super" font-size="19">V</tspan></text>
-<text class="text" x="285" y="1157" font-size="54">Q</text>
-<text class="text" x="525" y="1157" font-size="54">K</text>
-<text class="text" x="765" y="1157" font-size="54">V</text>
+  <rect x="2" y="2" width="896" height="976" fill="#fafafa" stroke="#1a1a1a" stroke-width="3" stroke-dasharray="9 8"/>
+
+  <!-- title -->
+  <text x="450" y="52" text-anchor="middle" class="sans title">Multi-Head Latent Attention</text>
+
+  <!-- output projection -->
+  <text x="450" y="94" text-anchor="middle" class="sans label">Output</text>
+  <path d="M450 139 L450 111" class="wire"/>
+  <rect x="360" y="140" width="180" height="68" rx="18" class="box gray"/>
+  <text x="450" y="182" text-anchor="middle" class="sans label">Linear</text>
+  <text x="555" y="174" class="math small">W<tspan baseline-shift="super" font-size="13">O</tspan></text>
+
+  <path d="M450 242 L450 209" class="wire"/>
+
+  <!-- concat -->
+  <rect x="190" y="243" width="520" height="68" rx="18" class="box pink"/>
+  <text x="450" y="285" text-anchor="middle" class="sans label">Concat</text>
+
+  <!-- attention heads stack -->
+  <rect x="162" y="343" width="576" height="126" rx="20" class="box yellow"/>
+  <rect x="145" y="361" width="576" height="126" rx="20" class="box yellow"/>
+  <rect x="128" y="379" width="576" height="126" rx="20" class="box yellow"/>
+  <text x="416" y="425" text-anchor="middle" class="sans label">Scaled Dot-Product Attention</text>
+  <text x="416" y="466" text-anchor="middle" class="math label">softmax(Q<tspan baseline-shift="sub" font-size="16">i</tspan>K<tspan baseline-shift="sub" font-size="16">i</tspan><tspan baseline-shift="super" font-size="16">T</tspan> / √d<tspan baseline-shift="sub" font-size="16">k</tspan>) V<tspan baseline-shift="sub" font-size="16">i</tspan></text>
+
+  <!-- arrows attention to concat -->
+  <path d="M300 379 L300 312" class="wire"/>
+  <path d="M450 361 L450 312" class="wire"/>
+  <path d="M600 343 L600 312" class="wire"/>
+
+  <!-- heads bracket -->
+  <path d="M764 343 h18 v162 h-18" class="wire-noarrow"/>
+  <text x="804" y="417" class="math label">h</text>
+  <text x="796" y="449" class="sans small">heads</text>
+
+  <!-- Qi Ki Vi -->
+  <text x="276" y="553" text-anchor="middle" class="math label">Q<tspan baseline-shift="sub" font-size="16">i</tspan></text>
+  <text x="476" y="553" text-anchor="middle" class="math label">K<tspan baseline-shift="sub" font-size="16">i</tspan></text>
+  <text x="676" y="553" text-anchor="middle" class="math label">V<tspan baseline-shift="sub" font-size="16">i</tspan></text>
+
+  <!-- Q up -->
+  <rect x="166" y="590" width="160" height="76" rx="16" class="box gray"/>
+  <text x="246" y="621" text-anchor="middle" class="sans label">Q Up</text>
+  <text x="246" y="650" text-anchor="middle" class="math small">W<tspan baseline-shift="super" font-size="13">UQ</tspan></text>
+  <path d="M246 590 L246 506" class="wire"/>
+
+  <!-- K up -->
+  <rect x="366" y="590" width="160" height="76" rx="16" class="box gray"/>
+  <text x="446" y="621" text-anchor="middle" class="sans label">K Up</text>
+  <text x="446" y="650" text-anchor="middle" class="math small">W<tspan baseline-shift="super" font-size="13">UK</tspan></text>
+  <path d="M446 590 L446 506" class="wire"/>
+
+  <!-- V up -->
+  <rect x="566" y="590" width="160" height="76" rx="16" class="box gray"/>
+  <text x="646" y="621" text-anchor="middle" class="sans label">V Up</text>
+  <text x="646" y="650" text-anchor="middle" class="math small">W<tspan baseline-shift="super" font-size="13">UV</tspan></text>
+  <path d="M646 590 L646 506" class="wire"/>
+
+  <!-- latent KV -->
+  <rect x="466" y="703" width="160" height="78" rx="16" class="box latent"/>
+  <text x="546" y="734" text-anchor="middle" class="sans label">Latent KV</text>
+  <text x="546" y="763" text-anchor="middle" class="math small">c<tspan baseline-shift="super" font-size="13">KV</tspan></text>
+
+  <!-- latent to K/V up, clean elbow branches -->
+  <path d="M546 703 L546 686 L446 686 L446 667" class="wire"/>
+  <path d="M546 703 L546 686 L646 686 L646 667" class="wire"/>
+
+  <!-- cache -->
+  <rect x="690" y="713" width="160" height="62" rx="12" class="box cache"/>
+  <text x="770" y="740" text-anchor="middle" class="sans small">KV Cache</text>
+  <text x="770" y="762" text-anchor="middle" class="math tiny">cached latent KV</text>
+  <path d="M690 744 L627 744" class="dash"/>
+
+  <!-- down projections -->
+  <rect x="166" y="822" width="160" height="76" rx="16" class="box gray"/>
+  <text x="246" y="853" text-anchor="middle" class="sans label">Q Down</text>
+  <text x="246" y="882" text-anchor="middle" class="math small">W<tspan baseline-shift="super" font-size="13">DQ</tspan></text>
+  <path d="M246 822 L246 667" class="wire"/>
+
+  <rect x="466" y="822" width="160" height="76" rx="16" class="box gray"/>
+  <text x="546" y="853" text-anchor="middle" class="sans label">KV Down</text>
+  <text x="546" y="882" text-anchor="middle" class="math small">W<tspan baseline-shift="super" font-size="13">DKV</tspan></text>
+  <path d="M546 822 L546 782" class="wire"/>
+
+  <!-- input X and split -->
+  <text x="396" y="958" text-anchor="middle" class="sans" style="font-size:34px;">X</text>
+  <path d="M396 930 L396 918" class="wire-noarrow"/>
+  <path d="M396 918 L246 918 L246 899" class="wire"/>
+  <path d="M396 918 L546 918 L546 899" class="wire"/>
+
 </svg>

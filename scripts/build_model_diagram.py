@@ -18,6 +18,13 @@ def run(command: list[str], cwd: Path) -> None:
     subprocess.run(command, cwd=cwd, check=True)
 
 
+def compact_unit(value: int) -> str:
+    """Render a model dimension with binary K/M units, matching diagram labels."""
+    divisor, suffix = (1024 * 1024, "M") if value >= 1024 * 1024 else (1024, "K")
+    rendered = f"{value / divisor:.2f}".rstrip("0").rstrip(".")
+    return f"{rendered}{suffix}"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("spec", type=Path, help="diagram specification JSON")
@@ -39,10 +46,20 @@ def main() -> int:
     run([sys.executable, "scripts/check_svg_arrow_connections.py", str(svg)], root)
 
     svg_text = svg.read_text(encoding="utf-8")
+    presentations = spec.get("parameter_presentation", {})
     for key, value in spec["required_parameters"].items():
-        formatted = f"{value:,}"
-        if key not in svg_text or formatted not in svg_text:
-            raise ValueError(f"diagram is missing required label {key} = {formatted}")
+        presentation = presentations.get(key)
+        if presentation is None:
+            expected = f"{key} = {value:,}"
+        else:
+            rendered = compact_unit(value)
+            if presentation.get("format") == "compact_tokens":
+                rendered += " tokens"
+            elif presentation.get("format") != "compact":
+                raise ValueError(f"unsupported parameter format for {key}: {presentation.get('format')}")
+            expected = f"{presentation['label']} · {rendered}"
+        if expected not in svg_text:
+            raise ValueError(f"diagram is missing required rendered parameter: {expected}")
 
     if not args.skip_preview:
         chrome = shutil.which("google-chrome") or shutil.which("chromium")
@@ -51,7 +68,8 @@ def main() -> int:
             chrome = str(mac_chrome)
         if chrome is None:
             raise RuntimeError("Chrome/Chromium is required for PNG preview; use --skip-preview only in CI")
-        width, height = 2200, 1650
+        canvas = spec.get("canvas", {})
+        width, height = canvas.get("width", 2200), canvas.get("height", 1650)
         png = output_dir / "architecture.png"
         run([
             chrome, "--headless", "--disable-gpu", "--hide-scrollbars",

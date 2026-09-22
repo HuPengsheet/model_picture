@@ -34,6 +34,21 @@ def classes(element: ElementTree.Element) -> set[str]:
     return set(element.attrib.get("class", "").split())
 
 
+def embedded_svg_nodes(root: ElementTree.Element) -> set[int]:
+    """Return descendants of nested SVGs, which use their own coordinate system.
+
+    Component templates can be embedded as child ``<svg>`` elements in a full
+    diagram. They are checked before composition; this checker must not compare
+    their local coordinates with the parent diagram's coordinates.
+    """
+    ignored = set()
+    for node in root.iter(NS + "svg"):
+        if node is root:
+            continue
+        ignored.update(id(descendant) for descendant in node.iter())
+    return ignored
+
+
 def endpoint(path_data: str) -> tuple[float, float]:
     """Return the final point of a path containing absolute M/H/V/L commands."""
     tokens = [(command, number) for command, number in TOKEN.findall(path_data)]
@@ -79,8 +94,11 @@ def frame_rectangles(root: ElementTree.Element) -> list[tuple[str, float, float,
     excluded: they are expected to contain other rectangles.
     """
     frame_classes = {"module", "router", "attention"}
+    ignored = embedded_svg_nodes(root)
     frames = []
     for node in root.iter(NS + "rect"):
+        if id(node) in ignored:
+            continue
         matched = classes(node) & frame_classes
         if not matched:
             continue
@@ -142,8 +160,11 @@ def text_boxes(root: ElementTree.Element) -> list[tuple[str, float, float, float
     reported before handoff.
     """
     sizes = font_sizes(root)
+    ignored = embedded_svg_nodes(root)
     boxes = []
     for node in root.iter(NS + "text"):
+        if id(node) in ignored:
+            continue
         content = "".join(node.itertext()).strip()
         if not content or "x" not in node.attrib or "y" not in node.attrib:
             continue
@@ -312,8 +333,11 @@ def text_path_overlap_failures(
 ) -> list[str]:
     """Flag diagram connectors that run through estimated text bounds."""
     connector_classes = {"flow", "residual", "merge", "wire"}
+    ignored = embedded_svg_nodes(root)
     failures = []
     for path_index, node in enumerate(root.iter(NS + "path"), start=1):
+        if id(node) in ignored:
+            continue
         if not (classes(node) & connector_classes):
             continue
         for segment in path_segments(node.attrib["d"]):
@@ -331,9 +355,10 @@ def text_boundary_overlap_failures(
 ) -> list[str]:
     """Flag text touching the drawn perimeter of visible architecture rectangles."""
     visible_classes = {"outer", "block", "module", "router", "attention", "moe", "panel"}
+    ignored = embedded_svg_nodes(root)
     frames = [
         node for node in root.iter(NS + "rect")
-        if classes(node) & visible_classes
+        if id(node) not in ignored and classes(node) & visible_classes
     ]
     failures = []
     for text_index, (content, x, y, width, height) in enumerate(boxes, start=1):
@@ -378,14 +403,15 @@ def main() -> int:
     args = parser.parse_args()
 
     root = ElementTree.parse(args.svg).getroot()
+    ignored = embedded_svg_nodes(root)
     circles = [
         (float(node.attrib["cx"]), float(node.attrib["cy"]), float(node.attrib["r"]))
         for node in root.iter(NS + "circle")
-        if "sum" in classes(node)
+        if id(node) not in ignored and "sum" in classes(node)
     ]
     arrows = [
         node for node in root.iter(NS + "path")
-        if {"flow", "residual"} & classes(node)
+        if id(node) not in ignored and {"flow", "residual"} & classes(node)
     ]
     failures: list[str] = []
     checked = 0

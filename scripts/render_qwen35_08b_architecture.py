@@ -1,17 +1,25 @@
-"""Render the Qwen3.5-0.8B architecture from its saved official config."""
+"""Render Qwen3.5-0.8B from its drawing config and selected template plan."""
 import json
 from html import escape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-config = json.loads((ROOT / "models/qwen3.5-0.8b/config.json").read_text())
+spec = json.loads((ROOT / "models/qwen3.5-0.8b/spec.json").read_text())
+config = json.loads((ROOT / spec["config_file"]).read_text())
 c = config["text_config"]
 assert c["layer_types"] == (["linear_attention"] * 3 + ["full_attention"]) * 6
-out = ROOT / "models/qwen3.5-0.8b"
+plan = spec["template_plan"]
+template_paths = [plan["main_network"], *plan["components"]]
+for template_path in template_paths:
+    if not (ROOT / template_path).is_file():
+        raise FileNotFoundError(f"selected template does not exist: {template_path}")
+labels = spec["labels"]
+layout = spec["layout_overrides"]
+out = ROOT / spec["output_directory"]
 out.mkdir(parents=True, exist_ok=True)
 s = ['<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1650" viewBox="0 0 2200 1650">',
      '<title>Qwen3.5-0.8B architecture</title>',
-     '<desc>Official-config architecture: multimodal input, hybrid Gated DeltaNet and Gated GQA layers, and dense SwiGLU FFNs.</desc>',
+     '<desc>Official-config architecture: multimodal input, hybrid Gated DeltaNet and Gated GQA layers, and dense SwiGLU FFNs. Template plan: ' + escape(', '.join(template_paths)) + '.</desc>',
      '<defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="10" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#222"/></marker></defs>',
      '<rect width="2200" height="1650" fill="white"/>']
 
@@ -33,10 +41,11 @@ for x,key in [(40,"hidden_size"),(760,"vocab_size"),(1480,"max_position_embeddin
     rect(x,125,680,70,"#edf4ff"); text(x+340,170,f'{key} = {c[key]:,}',28,"#245ba0")
 
 # Left: complete inference backbone.
-rect(40,245,650,1180,"#d4d4d4"); text(365,285,"01 / Overall network",28)
+network = layout["main_network"]
+rect(network["x"],network["y"],network["width"],network["height"],"#d4d4d4"); text(365,285,"01 / Overall network",28)
 box(235,340,260,"LM Head (tied)"); up(365,340,310); text(535,330,"Logits",20)
 box(235,440,260,"Final RMSNorm"); up(365,440,392)
-rect(115,545,510,665,"#81a9e2"); text(370,585,f'Decoder Block × {c["num_hidden_layers"]}',27)
+rect(115,545,510,665,"#81a9e2"); text(370,585,f'Decoder Block {labels["repeat_label"]}',27)
 circle(365,640,"+"); up(365,621,492)
 box(210,700,310,"C / Dense SwiGLU FFN","#fff0d4"); up(365,700,659)
 box(230,805,270,"RMSNorm"); up(365,805,752)
@@ -45,12 +54,14 @@ box(195,980,340,"A / DeltaNet  OR  B / GQA","#fffbdc",70); up(365,980,929)
 box(230,1120,270,"RMSNorm"); up(365,1120,1050)
 path("M365 1185 H580 V910 H386"); path("M365 875 H600 V640 H386")
 box(215,1270,300,"Token / visual embeddings"); up(365,1270,1172)
-path("M215 1296 H90",False,True); text(95,1348,"Embedding dimension",19,anchor="start"); text(95,1380,f'{c["hidden_size"]:,}',27,"#c51676",anchor="start")
+embedding = layout["embedding_callout"]
+path("M215 1296 H90",False,True); text(embedding["x"],embedding["y"],"Embedding dimension",19,anchor="start"); text(embedding["x"],embedding["y"] + 32,f'{labels["embedding_dimension"]:,}',27,"#c51676",anchor="start")
 box(60,1510,220,"Text token IDs"); path("M170 1510 V1450 H300 V1322")
 box(355,1510,320,"Images / video"); path("M515 1510 V1475 H610 V1322 H515")
 
 # A: Gated DeltaNet.
-rect(745,245,750,810,"white",True); text(1120,288,"A / Gated DeltaNet · 18 layers",27)
+panels = layout["component_panels"]
+rect(panels["delta_rule_x"],245,750,810,"white",True); text(1120,288,f'A / Gated DeltaNet · {labels["linear_attention_layers"]} layers',27)
 box(970,320,210,"Output Linear","#d5d5d5"); circle(1075,430,"×"); up(1075,411,372)
 box(970,490,210,"RMSNorm"); up(1075,490,449)
 box(775,600,570,"Gated Delta Rule","#ffffd5"); up(1075,600,542)
@@ -65,7 +76,7 @@ box(1360,940,100,"Linear","#d5d5d5"); box(1360,720,100,"SiLU","#edf4ff"); up(141
 text(1120,1030,"Q/K: 16 × 128 · V: 16 × 128 · Conv kernel: 4 · SiLU activation",20)
 
 # B: gated grouped-query attention.
-rect(1530,245,630,810,"white",True); text(1845,288,"B / Gated GQA · 6 layers",27)
+rect(panels["gated_gqa_x"],245,630,810,"white",True); text(1845,288,f'B / Gated GQA · {labels["full_attention_layers"]} layers',27)
 box(1740,320,210,"Output Linear","#d5d5d5"); circle(1845,430,"×"); up(1845,411,372)
 box(1560,550,430,"Causal scaled dot-product","#ffffd5",70); path("M1845 550 V449")
 for x,label in [(1630,"Q"),(1770,"K"),(1910,"V")]:
@@ -77,7 +88,7 @@ box(2015,940,110,"Linear","#d5d5d5"); box(2000,740,140,"Sigmoid","#edf4ff"); up(
 text(1775,665,"Q/K: partial RoPE",20,"#666"); text(1845,1030,"8 Q heads · 2 KV heads · head_dim 256",20)
 
 # C: dense SwiGLU, based on the reusable component.
-rect(745,1090,1415,425,"white",True); text(1450,1130,"C / Dense SwiGLU FFN · every decoder layer",28)
+rect(745,panels["ffn_y"],1415,425,"white",True); text(1450,1130,"C / Dense SwiGLU FFN · every decoder layer",28)
 box(1305,1160,290,"Down projection → 1,024","#fff0d4"); circle(1450,1255,"×"); up(1450,1236,1212)
 box(930,1380,300,"Gate projection → 3,584"); box(1670,1380,300,"Up projection → 3,584")
 box(990,1290,180,"SiLU","#edf4ff"); up(1080,1380,1342)

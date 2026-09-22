@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 
@@ -60,6 +61,47 @@ def validate(spec_path: Path) -> dict:
         configured = next((text_config[key] for key in config_keys if key in text_config), None)
         if spec_key in backbone and backbone[spec_key] != configured:
             fail(f"{spec_key} does not match config ({'/'.join(config_keys)})")
+
+    # A drawing config may select reusable templates. Validate these paths here
+    # so a renderer never silently falls back to hand-drawn, untracked assets.
+    template_plan = spec.get("template_plan")
+    if template_plan is not None:
+        main_template = template_plan.get("main_network")
+        components = template_plan.get("components", [])
+        if not isinstance(main_template, str) or not main_template:
+            fail("template_plan.main_network must be a non-empty template path")
+        if not isinstance(components, list) or not all(isinstance(path, str) and path for path in components):
+            fail("template_plan.components must be a list of non-empty template paths")
+        for template_path in (main_template, *components):
+            if not (root / template_path).is_file():
+                fail(f"selected template does not exist: {template_path}")
+
+    # Labels are part of the drawing config, not free-form copies of model
+    # dimensions. Check the two labels that can be derived generically.
+    labels = spec.get("labels", {})
+    if "embedding_dimension" in labels and labels["embedding_dimension"] != text_config["hidden_size"]:
+        fail("labels.embedding_dimension does not match hidden_size")
+    if "repeat_label" in labels:
+        match = re.search(r"\d+", str(labels["repeat_label"]))
+        if match is None or int(match.group()) != text_config["num_hidden_layers"]:
+            fail("labels.repeat_label does not match num_hidden_layers")
+    if "dense_layers" in labels:
+        expected_dense = text_config.get("first_k_dense_replace")
+        if expected_dense is None and "moe_layer_freq" in text_config:
+            expected_dense = text_config["moe_layer_freq"].count(0)
+        if expected_dense is None or labels["dense_layers"] != expected_dense:
+            fail("labels.dense_layers does not match the Dense/MoE schedule")
+    if "moe_layers" in labels:
+        expected_dense = text_config.get("first_k_dense_replace")
+        if expected_dense is None and "moe_layer_freq" in text_config:
+            expected_dense = text_config["moe_layer_freq"].count(0)
+        if expected_dense is None or labels["moe_layers"] != text_config["num_hidden_layers"] - expected_dense:
+            fail("labels.moe_layers does not match the Dense/MoE schedule")
+    for label_key, pattern_value in (("full_attention_layers", 0), ("sliding_window_layers", 1)):
+        if label_key in labels:
+            pattern = text_config.get("hybrid_layer_pattern")
+            if not isinstance(pattern, list) or labels[label_key] != pattern.count(pattern_value):
+                fail(f"labels.{label_key} does not match hybrid_layer_pattern")
     return spec
 
 
