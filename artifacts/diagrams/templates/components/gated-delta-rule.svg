@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1272" viewBox="0 0 1100 1272">
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1272" viewBox="0 0 1100 1272" style="font-family:Arial, Helvetica, sans-serif">
+  <!-- Local-coordinate contract: invisible anchors used only by the SVG compiler. -->
+  <circle data-anchor="origin" cx="0" cy="0" r="0" opacity="0"/>
+  <circle data-anchor="input" cx="550" cy="1272" r="0" opacity="0"/>
+  <circle data-anchor="output" cx="550" cy="0" r="0" opacity="0"/>
   <title>Gated Delta Rule architecture</title>
   <desc>Editable vector recreation of the supplied diagram, preserving its original layout, colors, labels and overlapping blocks.</desc>
   <defs>
@@ -17,7 +21,8 @@
       .title { font-family:Arial, Helvetica, sans-serif; fill:#111; text-anchor:middle; font-weight:700; }
     </style>
   </defs>
-  <rect width="1100" height="1272" fill="white"/>
+  <!-- Transparent outer canvas: the host SVG controls the page background. -->
+  <rect width="1100" height="1272" fill="none"/>
   <text class="title" x="550" y="48" font-size="42">Gated Delta Rule</text>
   <g transform="translate(0 70)">
   <rect class="panel" x="22" y="4" width="1056" height="1192" rx="64"/>
@@ -51,7 +56,7 @@
     <text x="309.5" y="599">K</text>
     <text x="495.5" y="728">V</text>
   </g>
-  <g fill="#111" font-family="Times New Roman, Times, serif" font-style="italic" font-size="70" text-anchor="middle">
+  <g fill="#111" font-family="Arial, Helvetica, sans-serif" font-style="italic" font-size="70" text-anchor="middle">
     <text x="650" y="727">α</text>
     <text x="759" y="727">β</text>
   </g>
@@ -64,13 +69,13 @@
   <!-- Activation circles. -->
   <g>
     <circle class="operator" cx="248.5" cy="835" r="36"/>
-    <text x="248.5" y="854" text-anchor="middle" fill="#080808" font-family="Times New Roman, Times, serif" font-style="italic" font-size="76">σ</text>
+    <text x="248.5" y="854" text-anchor="middle" fill="#080808" font-family="Arial, Helvetica, sans-serif" font-style="italic" font-size="76">σ</text>
     <circle class="operator" cx="284.5" cy="849" r="36"/>
-    <text x="284.5" y="868" text-anchor="middle" fill="#080808" font-family="Times New Roman, Times, serif" font-style="italic" font-size="76">σ</text>
+    <text x="284.5" y="868" text-anchor="middle" fill="#080808" font-family="Arial, Helvetica, sans-serif" font-style="italic" font-size="76">σ</text>
     <circle class="operator" cx="471.5" cy="823" r="36"/>
-    <text x="471.5" y="842" text-anchor="middle" fill="#080808" font-family="Times New Roman, Times, serif" font-style="italic" font-size="76">σ</text>
+    <text x="471.5" y="842" text-anchor="middle" fill="#080808" font-family="Arial, Helvetica, sans-serif" font-style="italic" font-size="76">σ</text>
     <circle class="operator" cx="908.5" cy="597" r="36"/>
-    <text x="908.5" y="616" text-anchor="middle" fill="#080808" font-family="Times New Roman, Times, serif" font-style="italic" font-size="76">σ</text>
+    <text x="908.5" y="616" text-anchor="middle" fill="#080808" font-family="Arial, Helvetica, sans-serif" font-style="italic" font-size="76">σ</text>
   </g>
   <g class="label" font-size="38">
     <text x="1025" y="586">SiLU</text>

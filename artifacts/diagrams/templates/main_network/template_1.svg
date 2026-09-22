@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="1500" viewBox="0 0 820 1500" role="img" aria-label="Blank MoE MLA decoder architecture layout">
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="1500" viewBox="0 0 820 1500" role="img" aria-label="Blank MoE MLA decoder architecture layout" style="font-family:Arial, Helvetica, sans-serif">
+  <!-- Local-coordinate contract: full backbone entry/exit and residual attachment points. -->
+  <circle data-anchor="origin" cx="0" cy="0" r="0" opacity="0"/>
+  <circle data-anchor="input" cx="410" cy="1415" r="0" opacity="0"/>
+  <circle data-anchor="output" cx="410" cy="10" r="0" opacity="0"/>
+  <circle data-anchor="residual_lower_in" cx="410" cy="1050" r="0" opacity="0"/>
+  <circle data-anchor="residual_lower_out" cx="433" cy="665" r="0" opacity="0"/>
+  <circle data-anchor="residual_upper_in" cx="410" cy="630" r="0" opacity="0"/>
+  <circle data-anchor="residual_upper_out" cx="433" cy="355" r="0" opacity="0"/>
   <style>
     .outer{fill:#d4d4d4;stroke:#111;stroke-width:4}.block{fill:#81a9e2;stroke:#111;stroke-width:4}.module{fill:#fff;stroke:#111;stroke-width:4}.attention{fill:#545454;stroke:#111;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;marker-end:url(#thin-arrow)}.residual{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}
   </style>
@@ -7,7 +15,8 @@
       <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
     </marker>
   </defs>
-  <rect width="820" height="1500" fill="#fff"/>
+  <!-- Transparent outer canvas: the host SVG controls the page background. -->
+  <rect width="820" height="1500" fill="none"/>
 
   <!-- Main model region: all internal boxes stay inside this gray container. -->
   <rect class="outer" x="120" y="40" width="580" height="1250" rx="62"/>

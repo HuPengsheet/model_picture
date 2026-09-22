@@ -12,7 +12,7 @@ import json
 from pathlib import Path
 from xml.sax.saxutils import escape
 
-from svg_template import instantiate
+from svg_template import instantiate, viewbox_size
 
 
 def resolve_ref(document: dict, ref: str):
@@ -44,6 +44,35 @@ def resolve_slots(ir: dict, declared_slots: dict) -> dict[str, str]:
     return slots
 
 
+def transform_for_instance(template: Path, instance: dict) -> dict:
+    """Resolve explicit x/y or anchor-target placement into an SVG transform."""
+    transform = instance.get("transform", {})
+    placement = instance.get("placement")
+    if placement is None:
+        required = {"x", "y", "width", "height"}
+        if not required <= transform.keys():
+            raise ValueError(f"instance {instance['id']} needs transform {sorted(required)}")
+        return transform
+    required = {"anchor", "target", "width", "height"}
+    if not required <= placement.keys():
+        raise ValueError(f"instance {instance['id']} needs placement {sorted(required)}")
+    _fragment, anchors = instantiate(template, "anchor_probe", {}, 0, 0, placement["width"], placement["height"])
+    anchor_name = placement["anchor"]
+    if anchor_name not in anchors:
+        raise ValueError(f"template {template.name} has no anchor {anchor_name!r}")
+    target = placement["target"]
+    if not {"x", "y"} <= target.keys():
+        raise ValueError(f"instance {instance['id']} placement.target needs x and y")
+    view_width, view_height = viewbox_size(template)
+    anchor_x, anchor_y = anchors[anchor_name]
+    return {
+        "x": target["x"] - anchor_x * placement["width"] / view_width,
+        "y": target["y"] - anchor_y * placement["height"] / view_height,
+        "width": placement["width"],
+        "height": placement["height"],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("ir", type=Path)
@@ -56,9 +85,10 @@ def main() -> int:
     canvas = spec["canvas"]
     fragments = []
     for instance in spec["instances"]:
-        transform = instance["transform"]
+        template = root / instance["template"]
+        transform = transform_for_instance(template, instance)
         fragment, _anchors = instantiate(
-            root / instance["template"], instance["id"], resolve_slots(ir, instance.get("slots", {})),
+            template, instance["id"], resolve_slots(ir, instance.get("slots", {})),
             transform["x"], transform["y"], transform["width"], transform["height"],
         )
         fragments.append(fragment)

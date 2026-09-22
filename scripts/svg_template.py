@@ -55,3 +55,12 @@ def instantiate(template: Path, instance_id: str, slots: dict[str, str], x: floa
     fragment = "".join(ET.tostring(copy.deepcopy(child), encoding="unicode") for child in root)
     embedded = f'<svg x="{x}" y="{y}" width="{width}" height="{height}" viewBox="{view_box}">{fragment}</svg>'
     return embedded, anchors
+
+
+def viewbox_size(template: Path) -> tuple[float, float]:
+    """Return the local coordinate dimensions declared by one SVG template."""
+    root = ET.parse(template).getroot()
+    values = root.attrib.get("viewBox", "").split()
+    if len(values) != 4:
+        raise ValueError(f"template {template.name} must declare a four-value viewBox")
+    return float(values[2]), float(values[3])

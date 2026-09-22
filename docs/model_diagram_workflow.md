@@ -46,9 +46,11 @@ scripts/render_<model>_architecture.py               # 仅旧模型兼容适配�
 
 Architecture IR 固定包含 `model`、`parameters`、`io`、`backbone`、可选 `multimodal`、`sources`。`backbone.default_block.execution_order` 记录真实 `forward()` 顺序，`attention_variants` / `ffn_variants` 记录组件，`layer_schedule` 以精确 `layer_ids` 绑定组件变体。IR 禁止出现坐标、颜色、字体、SVG 路径或展示文案。
 
-`diagram_spec.json` 固定包含 `canvas`、两列布局与 `instances`。每个实例包含 `id`、`template`、`slots`、`transform`。槽位可引用 IR，例如 `{ "ref": "parameters.hidden_size", "format": "compact" }`，从而避免把模型数字再次写入绘图配置。
+`diagram_spec.json` 固定包含 `canvas`、两列布局与 `instances`。每个实例包含 `id`、`template`、`slots` 与 `transform` 或 `placement`。槽位可引用 IR，例如 `{ "ref": "parameters.hidden_size", "format": "compact" }`，从而避免把模型数字再次写入绘图配置。
 
-模板必须为独立 SVG 且带 `viewBox`：`data-slot="name"` 代表可替换文字，`data-anchor="input"` / `data-anchor="output"` 代表对外连接点。实例化器复制模板后自动给内部 `id`、`marker`、`clipPath` 加实例前缀，避免多个组件的箭头定义冲突。模板内部负责框高、字体、箭头和局部间距；`transform` 只负责整体 x/y/宽/高。
+模板必须为独立 SVG 且带 `viewBox`：`data-slot="name"` 代表可替换文字，`data-anchor="origin"`、`data-anchor="input"`、`data-anchor="output"` 代表局部参考点与对外连接点。实例化器复制模板后自动给内部 `id`、`marker`、`clipPath` 加实例前缀，避免多个组件的箭头定义冲突。模板内部负责框高、字体、箭头和局部间距；`transform` 只负责整体 x/y/宽/高。
+
+若只希望指定起始点，不必手算左上角：使用 `placement`，例如 `{ "anchor": "input", "target": {"x": 1150, "y": 900}, "width": 700, "height": 762 }`。编译器按 `viewBox` 缩放后自动计算组件的外层 `x/y`；移动组件时只改 `target`。
 
 ## 2. 第一步：从模型 config 构造绘图 config
 

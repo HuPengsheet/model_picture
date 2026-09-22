@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1850" viewBox="0 0 1100 1850" role="img" aria-label="Blank per-layer embedding Transformer architecture layout">
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1850" viewBox="0 0 1100 1850" role="img" aria-label="Blank per-layer embedding Transformer architecture layout" style="font-family:Arial, Helvetica, sans-serif">
+  <!-- Local-coordinate contract: use these anchors instead of editing internal coordinates. -->
+  <circle data-anchor="origin" cx="0" cy="0" r="0" opacity="0"/>
+  <circle data-anchor="input" cx="550" cy="1765" r="0" opacity="0"/>
+  <circle data-anchor="output" cx="550" cy="10" r="0" opacity="0"/>
   <style>
     .outer{fill:#d4d4d4;stroke:#111;stroke-width:4}.block{fill:#4b93f8;stroke:#111;stroke-width:4}.module{fill:#fff;stroke:#111;stroke-width:4}.attention{fill:#545454;stroke:#111;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;marker-end:url(#thin-arrow)}.residual{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}
   </style>
@@ -7,7 +11,8 @@
       <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
     </marker>
   </defs>
-  <rect width="1100" height="1850" fill="#fff"/>
+  <!-- Transparent outer canvas: the host SVG controls the page background. -->
+  <rect width="1100" height="1850" fill="none"/>
 
   <!-- Outer model and output head -->
   <rect class="outer" x="70" y="30" width="960" height="1570" rx="62"/>

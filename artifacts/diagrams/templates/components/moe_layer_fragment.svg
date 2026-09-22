@@ -1,15 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="590" viewBox="0 0 1120 590" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="590" viewBox="0 0 1120 590" role="img" aria-labelledby="title desc" style="font-family:Arial, Helvetica, sans-serif">
+  <!-- Local-coordinate contract: the routing panel occupies the left half. -->
+  <circle data-anchor="origin" cx="0" cy="0" r="0" opacity="0"/>
+  <circle data-anchor="input" cx="305" cy="590" r="0" opacity="0"/>
+  <circle data-anchor="output" cx="305" cy="25" r="0" opacity="0"/>
   <title id="title">Mixture-of-Experts layer</title>
   <desc id="desc">A Mixture-of-Experts layer diagram showing a router dispatching tokens to feed-forward experts, whose outputs merge at an addition node.</desc>
   <style>
-    .panel{fill:#f7f7f7;stroke:#111;stroke-width:5;stroke-dasharray:8 8}.module{fill:#fff;stroke:#111;stroke-width:4}.router{fill:#fff;stroke:#2998ff;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}.wire{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round}.label{font:500 22px Arial,sans-serif;fill:#111}.title{font:700 28px Arial,sans-serif;fill:#111}.body{font:500 22px Arial,sans-serif;fill:#111}.ellipsis{font:700 28px Arial,sans-serif;fill:#111}.blue{fill:#2998ff;font-weight:700}.badge-dark{fill:#111}.badge-blue{fill:#2998ff}.badge-text{font:700 18px Arial,sans-serif;fill:#fff}
+    .panel{fill:#f7f7f7;stroke:#111;stroke-width:5;stroke-dasharray:8 8}.module{fill:#fff;stroke:#111;stroke-width:4}.router{fill:#fff;stroke:#2998ff;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}.wire{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round}.label{font:500 22px Arial,Helvetica,sans-serif;fill:#111}.title{font:700 28px Arial,Helvetica,sans-serif;fill:#111}.body{font:500 22px Arial,Helvetica,sans-serif;fill:#111}.ellipsis{font:700 28px Arial,Helvetica,sans-serif;fill:#111}.blue{fill:#2998ff;font-weight:700}.badge-dark{fill:#111}.badge-blue{fill:#2998ff}.badge-text{font:700 18px Arial,Helvetica,sans-serif;fill:#fff}
   </style>
   <defs>
     <marker id="thin-arrow" markerWidth="7" markerHeight="7" refX="7" refY="3.5" orient="auto">
       <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
     </marker>
   </defs>
-  <rect width="1120" height="590" fill="#fff"/>
+  <!-- Transparent outer canvas: the host SVG controls the page background. -->
+  <rect width="1120" height="590" fill="none"/>
 
   <!-- MoE routing panel -->
   <rect class="panel" x="30" y="25" width="550" height="530" rx="52"/>
