@@ -1,0 +1,8 @@
+{
+  "model": {"name": "Sliding-window 100 demonstration"},
+  "attention": {
+    "type": "sliding_window_attention",
+    "window_size": 100,
+    "causal": true
+  }
+}

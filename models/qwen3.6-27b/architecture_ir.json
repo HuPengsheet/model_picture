@@ -1,0 +1,114 @@
+{
+  "ir_version": "1.0",
+  "model": {
+    "name": "Qwen3.6-27B",
+    "architecture": "Qwen3_5ForConditionalGeneration",
+    "model_type": "multimodal_decoder"
+  },
+  "parameters": {
+    "hidden_size": 5120,
+    "vocab_size": 248320,
+    "context_length": 262144
+  },
+  "io": {
+    "input_type": [
+      "text",
+      "image",
+      "video"
+    ],
+    "embedding": {
+      "type": "token_and_visual_embedding",
+      "dimension": 5120
+    },
+    "lm_head": {
+      "type": "linear",
+      "tied": false
+    }
+  },
+  "backbone": {
+    "kind": "decoder_only",
+    "num_layers": 64,
+    "final_norm": {
+      "type": "rms_norm",
+      "epsilon": 1e-06
+    },
+    "default_block": {
+      "execution_order": [
+        "input_rms_norm",
+        "attention",
+        "residual_add",
+        "post_attention_rms_norm",
+        "ffn",
+        "residual_add"
+      ],
+      "residuals": 2
+    },
+    "attention_variants": {
+      "gated_delta_net": {
+        "type": "linear_attention",
+        "layers_per_cycle": 3,
+        "conv_kernel": 4,
+        "key_heads": 16,
+        "key_head_dim": 128,
+        "value_heads": 48,
+        "value_head_dim": 128,
+        "output_gate": "swish"
+      },
+      "gated_gqa": {
+        "type": "full_attention",
+        "layers_per_cycle": 1,
+        "num_attention_heads": 24,
+        "num_key_value_heads": 4,
+        "head_dim": 256,
+        "output_gate": "swish",
+        "position": {
+          "type": "mrope",
+          "partial_rotary_factor": 0.25,
+          "theta": 10000000
+        }
+      }
+    },
+    "ffn_variants": {
+      "dense_swiglu": {
+        "type": "swiglu",
+        "activation": "silu",
+        "intermediate_size": 17408
+      }
+    },
+    "layer_schedule": [
+      {
+        "cycle": [
+          "gated_delta_net",
+          "gated_delta_net",
+          "gated_delta_net",
+          "gated_gqa"
+        ],
+        "repeats": 16
+      },
+      {
+        "slot": "ffn",
+        "variant": "dense_swiglu",
+        "layer_ids": "all"
+      }
+    ]
+  },
+  "multimodal": {
+    "vision_encoder": {
+      "kind": "vision_transformer",
+      "num_layers": 27,
+      "hidden_size": 1152,
+      "output_size": 5120,
+      "patch_size": 16,
+      "spatial_merge_size": 2,
+      "temporal_patch_size": 2
+    },
+    "fusion": {
+      "type": "visual_token_embedding_replacement"
+    }
+  },
+  "sources": {
+    "repository": "Qwen/Qwen3.6-27B",
+    "config_url": "https://huggingface.co/Qwen/Qwen3.6-27B/blob/main/config.json",
+    "architecture_class": "Qwen3_5ForConditionalGeneration"
+  }
+}

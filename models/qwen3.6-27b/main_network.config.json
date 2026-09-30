@@ -1,0 +1,50 @@
+{
+  "title": "Qwen3.6-27B · Main network",
+  "description": "Text backbone derived from Qwen/Qwen3.6-27B config.json. The 64 decoder layers follow the repeating attention schedule [three Gated DeltaNet layers, then one Gated GQA layer] × 16; every layer uses a dense SwiGLU FFN.",
+  "template": "artifacts/diagrams/templates/main_network/template_1.svg",
+  "source": {
+    "repository": "Qwen/Qwen3.6-27B",
+    "config_url": "https://huggingface.co/Qwen/Qwen3.6-27B/blob/main/config.json",
+    "architecture": "Qwen3_5ForConditionalGeneration"
+  },
+  "model": {
+    "num_layers": 64,
+    "repeat_label": "×64 layers",
+    "embedding_label": "Token + visual embed.",
+    "input_label": "Multimodal tokens",
+    "lm_head": {
+      "label": "LM Head (untied)"
+    },
+    "final_norm": {
+      "type": "RMSNorm"
+    }
+  },
+  "decoder": {
+    "input_norm": {
+      "type": "RMSNorm"
+    },
+    "post_attention_norm": {
+      "type": "RMSNorm"
+    },
+    "attention": {
+      "type": "hybrid",
+      "label": "Hybrid Attention",
+      "schedule_label": "3× DeltaNet + 1× GQA · ×16",
+      "variants": [
+        {
+          "type": "gated_delta_net",
+          "layers_per_cycle": 3
+        },
+        {
+          "type": "gated_gqa",
+          "layers_per_cycle": 1
+        }
+      ]
+    },
+    "ffn": {
+      "type": "swiglu",
+      "label": "SwiGLU FFN"
+    },
+    "residual_operator": "+"
+  }
+}

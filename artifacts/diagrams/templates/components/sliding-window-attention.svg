@@ -1,182 +1,135 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1202" viewBox="0 0 1100 1202" style="font-family:Arial, Helvetica, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1400" viewBox="0 0 1300 1400" style="font-family:Arial, Helvetica, sans-serif">
+<title>Sliding Window Attention — causal, generic window size w</title>
+<desc>Generic causal sliding-window attention diagram. Window size w and sequence length n are symbolic parameters.</desc>
 <circle data-anchor="origin" cx="0" cy="0" r="0" opacity="0"/>
-<circle data-anchor="input" cx="550" cy="1202" r="0" opacity="0"/>
-<circle data-anchor="output" cx="550" cy="0" r="0" opacity="0"/>
-<title>Sliding Window Attention — causal, window size 4</title>
-<desc>Causal sliding window attention with a window of four tokens including the current token. Query 7 attends only to keys 4, 5, 6 and 7. The matrix shows all allowed query-key pairs for a ten-token sequence.</desc>
+<circle data-anchor="input" cx="650" cy="1400" r="0" opacity="0"/>
+<circle data-anchor="output" cx="650" cy="0" r="0" opacity="0"/>
 <defs><marker id="arrow" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L14 7 L0 14 Z" fill="#222"/></marker>
 <style>.line{fill:none;stroke:#222;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}.box{stroke:#181818;stroke-width:2.8}.text{font-family:Arial,Helvetica,sans-serif;fill:#111;text-anchor:middle;font-weight:400}.math{font-family:Arial,Helvetica,sans-serif;fill:#111;text-anchor:middle;font-style:italic}</style></defs>
-<!-- Transparent outer canvas: the host SVG controls the page background. -->
-<rect width="1100" height="1202" fill="none"/>
+<rect width="1300" height="1400" fill="none"/>
+<rect x="12" y="12" width="1276" height="1376" rx="34" fill="#edf5ff" stroke="#222" stroke-width="3" stroke-dasharray="9 8"/>
 
-<text class="text" x="550" y="63" font-size="44">Sliding Window Attention</text>
-<text class="text" x="550" y="106" font-size="23">Causal · window size w = 4 (including the current token)</text>
-<text class="text" x="550" y="191" font-size="25">Current query</text>
-<rect class="box" x="646" y="156" width="78" height="72" rx="18" fill="#ff9892"/>
-<text class="math" x="685" y="202" font-size="36">q<tspan baseline-shift="sub" font-size="70%">7</tspan></text>
-<rect x="371" y="309" width="358" height="105" rx="23" fill="#ffffd5"/>
-<path class="line" d="M415 329 L659 232" marker-end="url(#arrow)"/>
-<path class="line" d="M505 329 L676 232" marker-end="url(#arrow)"/>
-<path class="line" d="M595 329 L693 232" marker-end="url(#arrow)"/>
-<path class="line" d="M685 329 L710 232" marker-end="url(#arrow)"/>
-<rect class="box" x="113" y="332" width="64" height="64" rx="17" fill="#d5d5d5"/>
-<text class="math" x="145" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">1</tspan></text>
-<rect class="box" x="203" y="332" width="64" height="64" rx="17" fill="#d5d5d5"/>
-<text class="math" x="235" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">2</tspan></text>
-<rect class="box" x="293" y="332" width="64" height="64" rx="17" fill="#d5d5d5"/>
-<text class="math" x="325" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">3</tspan></text>
-<rect class="box" x="383" y="332" width="64" height="64" rx="17" fill="#ffdf80"/>
-<text class="math" x="415" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">4</tspan></text>
-<rect class="box" x="473" y="332" width="64" height="64" rx="17" fill="#ffdf80"/>
-<text class="math" x="505" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">5</tspan></text>
-<rect class="box" x="563" y="332" width="64" height="64" rx="17" fill="#ffdf80"/>
-<text class="math" x="595" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">6</tspan></text>
-<rect class="box" x="653" y="332" width="64" height="64" rx="17" fill="#ffdf80"/>
-<text class="math" x="685" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">7</tspan></text>
-<rect class="box" x="743" y="332" width="64" height="64" rx="17" fill="#d5d5d5"/>
-<text class="math" x="775" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">8</tspan></text>
-<rect class="box" x="833" y="332" width="64" height="64" rx="17" fill="#d5d5d5"/>
-<text class="math" x="865" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">9</tspan></text>
-<rect class="box" x="923" y="332" width="64" height="64" rx="17" fill="#d5d5d5"/>
-<text class="math" x="955" y="373" font-size="29">k<tspan baseline-shift="sub" font-size="70%">10</tspan></text>
-<text class="text" x="79" y="373" font-size="21">Keys</text>
-<path class="line" d="M384 421 V433 H716 V421"/>
-<text class="text" x="550" y="469" font-size="28">Query 7 attends to tokens 4–7</text>
-<text class="text" x="232" y="435" font-size="19" style="fill:#666">Outside window</text>
-<text class="text" x="872" y="435" font-size="19" style="fill:#666">Future tokens</text>
-<text class="text" x="550" y="547" font-size="34">Attention mask</text>
-<text class="text" x="550" y="587" font-size="24">Keys / values →</text>
-<text class="text" x="361" y="619" font-size="20">1</text>
-<text class="text" x="403" y="619" font-size="20">2</text>
-<text class="text" x="445" y="619" font-size="20">3</text>
-<text class="text" x="487" y="619" font-size="20">4</text>
-<text class="text" x="529" y="619" font-size="20">5</text>
-<text class="text" x="571" y="619" font-size="20">6</text>
-<text class="text" x="613" y="619" font-size="20">7</text>
-<text class="text" x="655" y="619" font-size="20">8</text>
-<text class="text" x="697" y="619" font-size="20">9</text>
-<text class="text" x="739" y="619" font-size="20">10</text>
-<text class="text" x="315" y="660" font-size="20">1</text>
-<rect x="340" y="632" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="382" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="424" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="466" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="508" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="550" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="592" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="634" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="676" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="718" y="632" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="702" font-size="20">2</text>
-<rect x="340" y="674" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="382" y="674" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="424" y="674" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="466" y="674" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="508" y="674" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="550" y="674" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="592" y="674" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="634" y="674" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="676" y="674" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="718" y="674" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="744" font-size="20">3</text>
-<rect x="340" y="716" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="382" y="716" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="424" y="716" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="466" y="716" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="508" y="716" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="550" y="716" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="592" y="716" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="634" y="716" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="676" y="716" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="718" y="716" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="786" font-size="20">4</text>
-<rect x="340" y="758" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="382" y="758" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="424" y="758" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="466" y="758" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="508" y="758" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="550" y="758" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="592" y="758" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="634" y="758" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="676" y="758" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="718" y="758" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="828" font-size="20">5</text>
-<rect x="340" y="800" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="382" y="800" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="424" y="800" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="466" y="800" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="508" y="800" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="550" y="800" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="592" y="800" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="634" y="800" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="676" y="800" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="718" y="800" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="870" font-size="20">6</text>
-<rect x="340" y="842" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="382" y="842" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="424" y="842" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="466" y="842" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="508" y="842" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="550" y="842" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="592" y="842" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="634" y="842" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="676" y="842" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="718" y="842" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="912" font-size="20">7</text>
-<rect x="340" y="884" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="382" y="884" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="424" y="884" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="466" y="884" width="42" height="42" fill="#ff9892" stroke="white" stroke-width="2"/>
-<rect x="508" y="884" width="42" height="42" fill="#ff9892" stroke="white" stroke-width="2"/>
-<rect x="550" y="884" width="42" height="42" fill="#ff9892" stroke="white" stroke-width="2"/>
-<rect x="592" y="884" width="42" height="42" fill="#ff9892" stroke="white" stroke-width="2"/>
-<rect x="634" y="884" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="676" y="884" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="718" y="884" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="954" font-size="20">8</text>
-<rect x="340" y="926" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="382" y="926" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="424" y="926" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="466" y="926" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="508" y="926" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="550" y="926" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="592" y="926" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="634" y="926" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="676" y="926" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="718" y="926" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="996" font-size="20">9</text>
-<rect x="340" y="968" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="382" y="968" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="424" y="968" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="466" y="968" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="508" y="968" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="550" y="968" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="592" y="968" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="634" y="968" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="676" y="968" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="718" y="968" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<text class="text" x="315" y="1038" font-size="20">10</text>
-<rect x="340" y="1010" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="382" y="1010" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="424" y="1010" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="466" y="1010" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="508" y="1010" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="550" y="1010" width="42" height="42" fill="#f0f0f0" stroke="white" stroke-width="2"/>
-<rect x="592" y="1010" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="634" y="1010" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="676" y="1010" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="718" y="1010" width="42" height="42" fill="#ffdf80" stroke="white" stroke-width="2"/>
-<rect x="340" y="632" width="420" height="420" rx="3" fill="none" stroke="#222" stroke-width="2.6"/>
-<text class="text" transform="translate(273 842) rotate(-90)" font-size="24">Queries →</text>
-<rect x="466" y="884" width="168" height="42" rx="4" fill="none" stroke="#222" stroke-width="2.6"/>
-<path class="line" d="M768 905 H809"/>
-<text class="math" x="882" y="899" font-size="29">q<tspan baseline-shift="sub" font-size="70%">7</tspan></text>
-<text class="text" x="882" y="929" font-size="20">4 visible keys</text>
-<rect x="240" y="1090" width="24" height="24" rx="5" fill="#ffdf80"/>
-<text class="text" x="276" y="1110" font-size="21" style="text-anchor:start">Allowed</text>
-<rect x="445" y="1090" width="24" height="24" rx="5" fill="#ff9892"/>
-<text class="text" x="481" y="1110" font-size="21" style="text-anchor:start">Query 7</text>
-<rect x="655" y="1090" width="24" height="24" rx="5" fill="#f0f0f0"/>
-<text class="text" x="691" y="1110" font-size="21" style="text-anchor:start">Masked</text>
-<text class="math" x="550" y="1170" font-size="25">Visible keys for query i:  max(1, i − w + 1) ≤ j ≤ i</text>
+<!-- ===== Title ===== -->
+<text data-slot="title" class="text" x="650" y="68" font-size="50">Sliding Window Attention</text>
+<text data-slot="window_label" class="text" x="650" y="116" font-size="27">Causal · window size = w</text>
+
+<!-- ===== Query-Key Illustration ===== -->
+<text class="text" x="650" y="176" font-size="28">Current query</text>
+
+<!-- q_t box -->
+<rect class="box" x="700" y="192" width="92" height="80" rx="20" fill="#ff9892"/>
+<text class="math" x="746" y="244" font-size="42">q<tspan baseline-shift="sub" font-size="70%">t</tspan></text>
+
+<!-- yellow window background behind window keys -->
+<rect x="310" y="336" width="510" height="112" rx="24" fill="#ffffd5"/>
+
+<!-- arrows from window keys to q_t -->
+<path class="line" d="M410 356 L716 276" marker-end="url(#arrow)"/>
+<path class="line" d="M540 356 L730 276" marker-end="url(#arrow)"/>
+<path class="line" d="M660 356 L746 276" marker-end="url(#arrow)"/>
+<path class="line" d="M780 356 L762 276" marker-end="url(#arrow)"/>
+
+<!-- key boxes row -->
+<!-- k_1 (gray, outside window) -->
+<rect class="box" x="92" y="360" width="76" height="76" rx="18" fill="#d5d5d5"/>
+<text class="math" x="130" y="408" font-size="34">k<tspan baseline-shift="sub" font-size="70%">1</tspan></text>
+
+<!-- dots (outside window) -->
+<text class="math" x="234" y="408" font-size="38">&#x22EF;</text>
+
+<!-- k_{t-w+1} (yellow, window start) -->
+<rect class="box" x="302" y="360" width="108" height="76" rx="18" fill="#ffdf80"/>
+<text class="math" x="356" y="402" font-size="28">k<tspan baseline-shift="sub" font-size="62%">t&#x2212;w+1</tspan></text>
+
+<!-- dots (in window) -->
+<text class="math" x="478" y="408" font-size="38" fill="#b08800">&#x22EF;</text>
+
+<!-- k_{t-1} (yellow) -->
+<rect class="box" x="544" y="360" width="96" height="76" rx="18" fill="#ffdf80"/>
+<text class="math" x="592" y="406" font-size="32">k<tspan baseline-shift="sub" font-size="66%">t&#x2212;1</tspan></text>
+
+<!-- k_t (yellow, window end) -->
+<rect class="box" x="700" y="360" width="76" height="76" rx="18" fill="#ffdf80"/>
+<text class="math" x="738" y="408" font-size="34">k<tspan baseline-shift="sub" font-size="70%">t</tspan></text>
+
+<!-- k_{t+1} (gray, future) -->
+<rect class="box" x="838" y="360" width="96" height="76" rx="18" fill="#d5d5d5"/>
+<text class="math" x="886" y="406" font-size="32">k<tspan baseline-shift="sub" font-size="66%">t+1</tspan></text>
+
+<!-- dots (future) -->
+<text class="math" x="1004" y="408" font-size="38">&#x22EF;</text>
+
+<!-- k_n (gray, future) -->
+<rect class="box" x="1080" y="360" width="76" height="76" rx="18" fill="#d5d5d5"/>
+<text class="math" x="1118" y="408" font-size="34">k<tspan baseline-shift="sub" font-size="70%">n</tspan></text>
+
+<text class="text" x="60" y="408" font-size="24">Keys</text>
+
+<!-- window bracket -->
+<path class="line" d="M303 460 V474 H775 V460"/>
+<text class="text" x="540" y="510" font-size="30" font-style="italic">w</text>
+<text class="text" x="540" y="542" font-size="22">tokens in window</text>
+
+<text class="text" x="166" y="476" font-size="22" style="fill:#666">Outside window</text>
+<text class="text" x="1010" y="476" font-size="22" style="fill:#666">Future (masked)</text>
+
+<!-- ===== Attention Mask Schematic ===== -->
+<text class="text" x="650" y="610" font-size="38">Attention Mask</text>
+<text class="text" x="650" y="648" font-size="26">n &#x00D7; n causal sliding-window pattern</text>
+
+<!-- axis labels -->
+<text class="text" x="650" y="686" font-size="26">Keys / values &#x2192;</text>
+<text class="text" transform="translate(348 950) rotate(-90)" font-size="26">Queries &#x2192;</text>
+
+<!-- column labels -->
+<text class="math" x="410" y="716" font-size="23">1</text>
+<text class="math" x="570" y="716" font-size="21">t&#x2212;w+1</text>
+<text class="math" x="712" y="716" font-size="23">t</text>
+<text class="math" x="890" y="716" font-size="23">n</text>
+
+<!-- row labels -->
+<text class="math" x="370" y="752" font-size="23">1</text>
+<text class="math" x="370" y="912" font-size="23">w</text>
+<text class="math" x="370" y="1042" font-size="23">t</text>
+<text class="math" x="370" y="1210" font-size="23">n</text>
+
+<!-- matrix outline: 520×520 square -->
+<rect x="390" y="730" width="520" height="520" fill="#f0f0f0" stroke="#222" stroke-width="2.6" rx="3"/>
+
+<!-- band polygon: causal sliding-window region (visual w/n≈0.35, t/n≈0.60) -->
+<!-- w_px=182, t_px=312 -->
+<!-- P1=(390,730) P2=(910,1250) P3=(728,1250) P4=(390,912) -->
+<polygon points="390,730 910,1250 728,1250 390,912" fill="#ffdf80" opacity="0.85"/>
+
+<!-- row t highlight strip: y_center=730+312=1042, strip 32px tall -->
+<!-- attended x: from 390+130=520 to 390+312=702, width=182 -->
+<rect x="520" y="1026" width="182" height="32" fill="#ff9892" opacity="0.90"/>
+
+<!-- dashed guide lines at col t, col t-w+1, row t -->
+<line x1="702" y1="730" x2="702" y2="1250" stroke="#222" stroke-width="1.2" stroke-dasharray="6 5" opacity="0.4"/>
+<line x1="520" y1="730" x2="520" y2="1250" stroke="#222" stroke-width="1.2" stroke-dasharray="6 5" opacity="0.4"/>
+<line x1="390" y1="1042" x2="910" y2="1042" stroke="#222" stroke-width="1.2" stroke-dasharray="6 5" opacity="0.4"/>
+
+<!-- w bracket on left side: y=730 to y=912 -->
+<path d="M380 730 h-14 v182 h14" class="line" style="stroke-width:2;marker-end:none"/>
+<text class="math" x="346" y="828" font-size="26">w</text>
+
+<!-- causal diagonal label -->
+<text class="math" transform="translate(838 1198) rotate(-45)" font-size="20" fill="#888">causal boundary</text>
+
+<!-- row t annotation -->
+<path class="line" d="M708 1042 H930" marker-end="url(#arrow)"/>
+<text class="math" x="1010" y="1035" font-size="30">q<tspan baseline-shift="sub" font-size="70%">t</tspan></text>
+<text class="text" x="1010" y="1066" font-size="20">attends w keys</text>
+
+<!-- ===== Legend ===== -->
+<rect x="270" y="1290" width="28" height="28" rx="6" fill="#ffdf80"/>
+<text class="text" x="312" y="1314" font-size="24" style="text-anchor:start">Attended (in window)</text>
+<rect x="560" y="1290" width="28" height="28" rx="6" fill="#ff9892"/>
+<text class="text" x="602" y="1314" font-size="24" style="text-anchor:start">Current query t</text>
+<rect x="830" y="1290" width="28" height="28" rx="6" fill="#f0f0f0" stroke="#ccc" stroke-width="1"/>
+<text class="text" x="872" y="1314" font-size="24" style="text-anchor:start">Masked</text>
+
+<!-- formula -->
+<text data-slot="visibility_formula" class="math" x="650" y="1368" font-size="28">Visibility: max(1, i &#x2212; w + 1) &#x2264; j &#x2264; i</text>
 </svg>

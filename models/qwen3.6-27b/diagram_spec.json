@@ -1,0 +1,62 @@
+{
+  "title": "Qwen3.6-27B · multimodal main network",
+  "canvas": {
+    "width": 820,
+    "height": 1800
+  },
+  "instances": [
+    {
+      "id": "multimodal_input",
+      "template": "artifacts/diagrams/templates/main_network/multimodal_input.svg",
+      "transform": {
+        "x": 0,
+        "y": 1120,
+        "width": 820,
+        "height": 660
+      },
+      "slots": {
+        "text_input_label": "Text",
+        "image_input_label": "Image",
+        "video_input_label": "Video",
+        "text_encoder_label": "Token embedding",
+        "image_encoder_label": "Vision encode",
+        "video_encoder_label": "Vision encode",
+        "fusion_label": "Multimodal embeddings",
+        "dimension_label": "d_model = 5,120"
+      }
+    },
+    {
+      "id": "text_backbone",
+      "template": "artifacts/diagrams/templates/main_network/multimodal_backbone.svg",
+      "transform": {
+        "x": 0,
+        "y": 0,
+        "width": 820,
+        "height": 1110
+      },
+      "slots": {
+        "lm_head_label": "LM Head (untied)",
+        "final_norm_label": "Final RMSNorm",
+        "decoder_repeat_label": "×64 layers",
+        "ffn_label": "SwiGLU FFN",
+        "post_attention_norm_label": "RMSNorm",
+        "attention_label": "Hybrid Attention",
+        "attention_schedule_label": "3× DeltaNet + 1× GQA · ×16",
+        "input_norm_label": "RMSNorm",
+        "residual_operator": "+"
+      }
+    }
+  ],
+  "connectors": [
+    {
+      "from": {
+        "instance": "multimodal_input",
+        "anchor": "output"
+      },
+      "to": {
+        "instance": "text_backbone",
+        "anchor": "input_rmsnorm"
+      }
+    }
+  ]
+}

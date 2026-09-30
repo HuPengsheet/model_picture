@@ -1,13 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="820" height="1500" viewBox="0 0 820 1500" role="img" aria-label="Blank MoE MLA decoder architecture layout with coral block" style="font-family:Arial, Helvetica, sans-serif">
-  <!-- Local-coordinate contract: full backbone entry/exit and residual attachment points. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="1110" viewBox="0 0 820 1110" role="img" aria-label="Compact decoder backbone for multimodal architectures" style="font-family:Arial, Helvetica, sans-serif">
+  <!-- Local-coordinate contract: the multimodal fused states enter input_rmsnorm. -->
   <circle data-anchor="origin" cx="0" cy="0" r="0" opacity="0"/>
-  <circle data-anchor="input" cx="410" cy="1415" r="0" opacity="0"/>
-  <circle data-anchor="output" cx="410" cy="10" r="0" opacity="0"/>
-  <circle data-anchor="residual_lower_in" cx="410" cy="1050" r="0" opacity="0"/>
-  <circle data-anchor="residual_lower_out" cx="433" cy="665" r="0" opacity="0"/>
-  <circle data-anchor="residual_upper_in" cx="410" cy="630" r="0" opacity="0"/>
-  <circle data-anchor="residual_upper_out" cx="433" cy="355" r="0" opacity="0"/>
   <circle data-anchor="input_rmsnorm" cx="410" cy="1008" r="0" opacity="0"/>
+  <circle data-anchor="output" cx="410" cy="10" r="0" opacity="0"/>
   <style>
     .global-frame{fill:none;stroke:#111;stroke-width:3;stroke-dasharray:9 8}.outer{fill:#d4d4d4;stroke:#111;stroke-width:4}.block{fill:#fb8f89;stroke:#111;stroke-width:4}.module{fill:#fff;stroke:#111;stroke-width:4}.attention{fill:#545454;stroke:#111;stroke-width:4}.sum{fill:#fff;stroke:#111;stroke-width:4}.flow{fill:none;stroke:#111;stroke-width:3.2;marker-end:url(#thin-arrow)}.residual{fill:none;stroke:#111;stroke-width:3.2;stroke-linejoin:round;marker-end:url(#thin-arrow)}.label{font:500 21px Arial,Helvetica,sans-serif;fill:#111;text-anchor:middle}.attention-title{font:500 26px Arial,Helvetica,sans-serif;fill:#fff;text-anchor:middle}.attention-detail{font:500 20px Arial,Helvetica,sans-serif;fill:#fff;text-anchor:middle}.repeat{font:700 19px Arial,Helvetica,sans-serif;fill:#111;text-anchor:end}.sum-label{font:700 28px Arial,Helvetica,sans-serif;fill:#111;text-anchor:middle}
   </style>
@@ -16,21 +11,18 @@
       <path d="M0 0 L7 3.5 L0 7z" fill="#111"/>
     </marker>
   </defs>
-  <!-- Transparent outer canvas: the host SVG controls the page background. -->
-  <rect width="820" height="1500" fill="none"/>
-  <rect class="global-frame" x="2" y="2" width="816" height="1496" rx="28"/>
-
-  <rect class="outer" x="120" y="40" width="580" height="1250" rx="62"/>
+  <rect width="820" height="1110" fill="none"/>
+  <rect class="global-frame" x="2" y="2" width="816" height="1106" rx="28"/>
+  <rect class="outer" x="120" y="40" width="580" height="1050" rx="62"/>
   <rect class="module" x="299" y="95" width="222" height="55" rx="13"/>
   <rect class="module" x="313" y="195" width="194" height="55" rx="13"/>
   <text data-slot="lm_head_label" class="label" x="410" y="130">LM Head</text>
   <text data-slot="final_norm_label" class="label" x="410" y="230">Final RMSNorm</text>
 
-  <!-- Repeated decoder block -->
   <rect class="block" x="195" y="300" width="430" height="790" rx="56"/>
   <text data-slot="decoder_repeat_label" class="repeat" x="595" y="328">Decoder Block × 1</text>
   <circle class="sum" cx="410" cy="355" r="20"/>
-  <rect class="module" x="301" y="430" width="218" height="55" rx="13" fill="#e5e5e5"/>
+  <rect class="module" x="301" y="430" width="218" height="55" rx="13"/>
   <rect class="module" x="304" y="535" width="212" height="55" rx="13"/>
   <circle class="sum" cx="410" cy="665" r="20"/>
   <rect class="attention" x="240" y="725" width="340" height="170" rx="16"/>
@@ -43,15 +35,6 @@
   <text data-slot="attention_schedule_label" class="attention-detail" x="410" y="820">causal attention</text>
   <text data-slot="input_norm_label" class="label" x="410" y="985">RMSNorm</text>
 
-  <g data-role="default-input-stage">
-    <rect class="module" x="262" y="1130" width="296" height="55" rx="13"/>
-    <rect class="module" x="289" y="1360" width="242" height="55" rx="13"/>
-    <text data-slot="embedding_label" class="label" x="410" y="1165">Token embedding</text>
-    <text data-slot="input_label" class="label" x="410" y="1395">Tokenized text</text>
-    <path class="flow" d="M410 1360 V1188"/>
-    <path class="flow" d="M410 1130 V1008"/>
-  </g>
-
   <path class="flow" d="M410 950 V898"/>
   <path class="flow" d="M410 725 V688"/>
   <path class="flow" d="M410 645 V593"/>
@@ -60,7 +43,6 @@
   <path class="flow" d="M410 335 V253"/>
   <path class="flow" d="M410 195 V153"/>
   <path class="flow" d="M410 95 V10"/>
-
   <path class="residual" d="M410 1050 H590 V665 H433"/>
   <path class="residual" d="M410 630 H590 V355 H433"/>
 </svg>

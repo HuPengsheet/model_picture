@@ -1,0 +1,27 @@
+{
+  "title": "Sliding-window attention · window size 100",
+  "canvas": {"width": 980, "height": 700},
+  "instances": [
+    {
+      "id": "swa_100",
+      "template": "artifacts/diagrams/templates/components/sliding-window-attention.svg",
+      "slots": {
+        "window_label": {
+          "ref": "attention.window_size",
+          "prefix": "Configured window size: ",
+          "suffix": " tokens"
+        },
+        "current_query_label": "Illustrative current query",
+        "illustration_label": "Illustration only: query 7 attends to displayed tokens 4–7",
+        "visibility_formula": "Actual visibility: max(1, i - w + 1) ≤ j ≤ i",
+        "title": "Sliding-Window Attention"
+      },
+      "placement": {
+        "anchor": "input",
+        "target": {"x": 490, "y": 650},
+        "width": 900,
+        "height": 620
+      }
+    }
+  ]
+}

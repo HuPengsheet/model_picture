@@ -1,0 +1,27 @@
+{
+  "template": "artifacts/diagrams/templates/main_network/template_1.svg",
+  "model": {
+    "num_layers": 61,
+    "embedding_label": "Token embedding",
+    "input_label": "Tokenized text",
+    "lm_head": {"label": "LM Head"},
+    "final_norm": {"type": "RMSNorm"}
+  },
+  "decoder": {
+    "input_norm": {"type": "RMSNorm"},
+    "post_attention_norm": {"type": "RMSNorm"},
+    "attention": {
+      "type": "hybrid",
+      "label": "Hybrid Attention",
+      "variants": [
+        {"type": "full_attention", "layers": "1, 8, 16, …"},
+        {"type": "sliding_window_attention", "layers": "other layers", "window_size": 128}
+      ]
+    },
+    "ffn": {
+      "type": "moe",
+      "label": "Sparse MoE FFN"
+    },
+    "residual_operator": "+"
+  }
+}
